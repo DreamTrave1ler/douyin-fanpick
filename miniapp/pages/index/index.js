@@ -6,7 +6,9 @@ Page({
         keyword: '',
         page: 1,
         loading: false,
-        noMore: false
+        noMore: false,
+        currentCategory: 'all',
+        showBackTop: false
     },
 
     onLoad() {
@@ -14,7 +16,6 @@ Page({
     },
 
     onShow() {
-        // 从详情页返回时可能有投票变化，刷新数据
         if (this._needRefresh) {
             this._needRefresh = false;
             this.refreshProducts();
@@ -31,6 +32,12 @@ Page({
         }
     },
 
+    onPageScroll(e) {
+        this.setData({
+            showBackTop: e.scrollTop > 500
+        });
+    },
+
     // 加载产品列表
     loadProducts() {
         if (this.data.loading || this.data.noMore) return;
@@ -38,7 +45,11 @@ Page({
 
         app.request({
             url: '/products',
-            data: { page: this.data.page, size: 10 }
+            data: {
+                page: this.data.page,
+                size: 10,
+                category: this.data.currentCategory
+            }
         }).then(data => {
             const list = (data.list || []).map(p => ({
                 ...p,
@@ -63,16 +74,43 @@ Page({
         return this.loadProducts();
     },
 
-    // 搜索
-    onSearchInput(e) {
-        this.setData({ keyword: e.detail.value });
-        // 可以加防抖搜索
+    // 切换分类
+    switchCategory(e) {
+        const category = e.currentTarget.dataset.category;
+        if (category === this.data.currentCategory) return;
+        this.setData({ currentCategory: category });
+        this.refreshProducts();
+    },
+
+    // 跳转搜索
+    goSearch() {
+        tt.navigateTo({ url: '/pages/search/search' });
+    },
+
+    // 跳转排行榜
+    goRank() {
+        tt.switchTab({ url: '/pages/rank/rank' });
+    },
+
+    // 跳转创作者
+    goCreator() {
+        tt.switchTab({ url: '/pages/mine/mine' });
+    },
+
+    // 跳转抖音商城
+    goShop() {
+        tt.navigateTo({ url: '/pages/shop/shop' });
     },
 
     // 跳转详情
     goDetail(e) {
         const id = e.currentTarget.dataset.id;
         tt.navigateTo({ url: `/pages/detail/detail?id=${id}` });
+    },
+
+    // 回到顶部
+    backToTop() {
+        tt.pageScrollTo({ scrollTop: 0, duration: 300 });
     },
 
     // 切换"想要"
@@ -88,6 +126,9 @@ Page({
             [key]: !isWanted,
             [countKey]: product.want_count + (isWanted ? -1 : 1)
         });
+
+        // 震动反馈
+        tt.vibrateShort({ type: 'medium' });
 
         app.request({
             url: '/wants',

@@ -1,37 +1,88 @@
 <view class="page-detail" tt:if="{{product}}">
-    <!-- 产品图片 -->
-    <view class="detail-image-wrap">
-        <image class="detail-image" src="{{product.image}}" mode="aspectFill" />
+    <!-- 产品图片轮播 -->
+    <swiper class="detail-swiper" indicator-dots="{{true}}" autoplay="{{false}}" circular="{{true}}">
+        <swiper-item>
+            <image class="detail-image" src="{{product.image}}" mode="aspectFill" bindtap="previewImage" />
+        </swiper-item>
+    </swiper>
+
+    <!-- 价格信息 -->
+    <view class="price-section">
+        <view class="price-main">
+            <text class="price-symbol">¥</text>
+            <text class="price-value">{{priceText}}</text>
+        </view>
+        <view class="price-meta">
+            <text class="meta-wants">{{product.want_count}} 人想要</text>
+            <text class="meta-divider">|</text>
+            <text class="meta-sales">{{product.sales || 0}} 人付款</text>
+        </view>
     </view>
 
-    <!-- 产品信息 -->
-    <view class="detail-info card">
-        <text class="detail-title">{{product.title}}</text>
-        <view class="detail-price-row">
-            <text class="detail-price">¥{{priceText}}</text>
-            <text class="detail-wants">{{product.want_count}} 人想要</text>
+    <!-- 商品标题 -->
+    <view class="title-section">
+        <view class="title-tags">
+            <text class="tag tag-hot" tt:if="{{product.want_count > 10}}">🔥 热门</text>
+            <text class="tag tag-douyin" tt:if="{{product.detail_url}}">抖音商城</text>
         </view>
-        <text class="detail-creator">推荐者：{{product.creator_name}}</text>
+        <text class="product-title">{{product.title}}</text>
+    </view>
+
+    <!-- 推荐者信息 -->
+    <view class="creator-section">
+        <image class="creator-avatar" src="{{product.creator_avatar || '/assets/default-avatar.png'}}" />
+        <view class="creator-info">
+            <text class="creator-name">{{product.creator_name}}</text>
+            <text class="creator-label">推荐者</text>
+        </view>
+        <text class="creator-time">{{product.created_at}}</text>
     </view>
 
     <!-- 投票区域 -->
-    <view class="vote-section card">
-        <view class="vote-title">你想要这个产品吗？</view>
-        <view class="vote-desc">投票后创作者可以看到你的选择</view>
+    <view class="vote-section">
+        <view class="vote-header">
+            <text class="vote-title">你想要这个产品吗？</text>
+            <text class="vote-desc">投票后创作者可以看到你的选择</text>
+        </view>
+        <view class="vote-stats">
+            <view class="stat-item">
+                <text class="stat-number">{{product.want_count}}</text>
+                <text class="stat-label">想要</text>
+            </view>
+            <view class="stat-divider"></view>
+            <view class="stat-item">
+                <text class="stat-number">{{product.view_count || 0}}</text>
+                <text class="stat-label">浏览</text>
+            </view>
+        </view>
         <button class="vote-btn {{product.is_wanted ? 'voted' : ''}}" bindtap="toggleWant">
-            {{product.is_wanted ? '❤️ 已想要，点击取消' : '🤍 我想要这个'}}
+            <text class="vote-icon">{{product.is_wanted ? '❤️' : '🤍'}}</text>
+            <text>{{product.is_wanted ? '已想要，点击取消' : '我想要这个'}}</text>
         </button>
-        <view class="vote-count">{{product.want_count}} 人已投票</view>
     </view>
 
     <!-- 操作栏 -->
     <view class="action-bar">
-        <button class="action-share" open-type="share">分享给朋友</button>
-        <button class="action-shop" bindtap="goShop">去抖音商城看看</button>
+        <button class="action-btn action-share" open-type="share">
+            <text class="action-icon">📤</text>
+            <text>分享</text>
+        </button>
+        <button class="action-btn action-shop" bindtap="goDouyinShop" tt:if="{{product.detail_url}}">
+            <text class="action-icon">🛒</text>
+            <text>去购买</text>
+        </button>
+        <button class="action-btn action-shop" bindtap="goShop" tt:else>
+            <text class="action-icon">🛒</text>
+            <text>逛商城</text>
+        </button>
     </view>
+
+    <!-- 底部安全区 -->
+    <view class="safe-bottom"></view>
 </view>
 
 <!-- 加载中 -->
-<view class="loading" tt:if="{{loading}}">
+<view class="loading-wrap" tt:if="{{loading}}">
+    <view class="loading-spinner"></view>
     <text>加载中...</text>
 </view>

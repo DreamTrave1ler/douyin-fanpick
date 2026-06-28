@@ -13,41 +13,58 @@ Page({
         }
     },
 
-    loadProduct(id) {
-        this.setData({ loading: true });
-        app.request({ url: `/products/${id}` })
-            .then(product => {
-                this.setData({
-                    product,
-                    priceText: (product.price / 100).toFixed(2),
-                    loading: false
-                });
-            })
-            .catch(err => {
-                this.setData({ loading: false });
-                tt.showToast({ title: String(err), icon: 'none' });
-                setTimeout(() => tt.navigateBack(), 1500);
-            });
+    onShareAppMessage() {
+        return {
+            title: `快来看看这个商品：${this.data.product.title}`,
+            path: `/pages/detail/detail?id=${this.data.product.id}`,
+            imageUrl: this.data.product.image
+        };
     },
 
-    // 切换"想要"
+    // 加载产品详情
+    loadProduct(id) {
+        this.setData({ loading: true });
+
+        app.request({
+            url: `/products/${id}`
+        }).then(data => {
+            this.setData({
+                product: data,
+                priceText: (data.price / 100).toFixed(2),
+                loading: false
+            });
+        }).catch(err => {
+            this.setData({ loading: false });
+            tt.showToast({ title: '加载失败', icon: 'none' });
+            setTimeout(() => tt.navigateBack(), 1500);
+        });
+    },
+
+    // 预览图片
+    previewImage() {
+        tt.previewImage({
+            urls: [this.data.product.image],
+            current: this.data.product.image
+        });
+    },
+
+    // 切换想要
     toggleWant() {
         const product = this.data.product;
-        if (!product) return;
-
         const isWanted = product.is_wanted;
-        // 先更新 UI
+
         this.setData({
             'product.is_wanted': !isWanted,
             'product.want_count': product.want_count + (isWanted ? -1 : 1)
         });
+
+        tt.vibrateShort({ type: 'medium' });
 
         app.request({
             url: '/wants',
             method: isWanted ? 'DELETE' : 'POST',
             data: { product_id: product.id }
         }).catch(err => {
-            // 回滚
             this.setData({
                 'product.is_wanted': isWanted,
                 'product.want_count': product.want_count
@@ -57,22 +74,15 @@ Page({
     },
 
     // 跳转抖音商城
-    goShop() {
-        const url = this.data.product?.detail_url;
+    goDouyinShop() {
+        const url = this.data.product.detail_url;
         if (url) {
-            tt.navigateTo({ url });
-        } else {
-            tt.showToast({ title: '暂无商城链接', icon: 'none' });
+            tt.navigateTo({ url: `/pages/webview/webview?url=${encodeURIComponent(url)}` });
         }
     },
 
-    // 分享
-    onShareAppMessage() {
-        const product = this.data.product;
-        return {
-            title: `帮我选！${product?.title || '好物推荐'}`,
-            path: `/pages/detail/detail?id=${product?.id}`,
-            imageUrl: product?.image
-        };
+    // 跳转商城
+    goShop() {
+        tt.navigateTo({ url: '/pages/shop/shop' });
     }
 });

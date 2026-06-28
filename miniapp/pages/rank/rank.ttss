@@ -1,123 +1,192 @@
-.page-rank {
-    background: linear-gradient(180deg, #FF2442 0%, #F5F5F5 40%);
-    min-height: 100vh;
+page {
+    background: #F5F7FA;
 }
 
-/* Top 3 展示区 */
+.page-rank {
+    min-height: 100vh;
+    padding-bottom: 40rpx;
+}
+
+/* ========== 顶部标题 ========== */
+.rank-header {
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+    padding: 40rpx 30rpx 60rpx;
+    text-align: center;
+}
+
+.header-title {
+    font-size: 40rpx;
+    font-weight: 700;
+    color: #FFF;
+    display: block;
+}
+
+.header-desc {
+    font-size: 24rpx;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 8rpx;
+    display: block;
+}
+
+/* ========== Top 3 展示区 ========== */
 .top3-section {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding: 40rpx 20rpx 60rpx;
+    padding: 0 24rpx 40rpx;
+    margin-top: -30rpx;
 }
 
 .top3-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 200rpx;
-    margin: 0 10rpx;
+    flex: 1;
     position: relative;
 }
 
 .top3-card.top1 {
-    width: 240rpx;
-    margin-bottom: 0;
+    order: 2;
+    margin: 0 -20rpx;
+    z-index: 10;
 }
 
-.top3-card.top2,
+.top3-card.top2 {
+    order: 1;
+}
+
 .top3-card.top3 {
-    margin-bottom: 40rpx;
+    order: 3;
 }
 
 .top3-crown {
     font-size: 48rpx;
     position: absolute;
-    top: -40rpx;
+    top: -36rpx;
+    z-index: 20;
 }
 
-.top3-rank {
-    width: 48rpx;
-    height: 48rpx;
-    line-height: 48rpx;
-    text-align: center;
-    background: #FFD700;
-    color: #FFF;
-    border-radius: 50%;
-    font-size: 28rpx;
-    font-weight: 700;
-    margin-bottom: 12rpx;
+.top3-badge {
+    font-size: 40rpx;
+    margin-bottom: 8rpx;
 }
 
-.top3-card.top2 .top3-rank,
-.top3-card.top3 .top3-rank {
-    background: #C0C0C0;
+.top3-avatar-wrap {
+    background: #FFF;
+    border-radius: 20rpx;
+    padding: 12rpx;
+    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
 }
 
 .top3-image {
-    width: 160rpx;
-    height: 160rpx;
-    border-radius: 16rpx;
-    border: 4rpx solid #FFF;
+    width: 140rpx;
+    height: 140rpx;
+    border-radius: 12rpx;
+}
+
+.top3-card.top1 .top3-avatar-wrap {
+    padding: 16rpx;
+    border-radius: 24rpx;
+    box-shadow: 0 12rpx 32rpx rgba(255, 36, 66, 0.2);
 }
 
 .top3-card.top1 .top3-image {
-    width: 200rpx;
-    height: 200rpx;
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 16rpx;
 }
 
 .top3-title {
     font-size: 22rpx;
-    color: #FFF;
+    color: #333;
     margin-top: 12rpx;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 200rpx;
+    max-width: 180rpx;
+    font-weight: 600;
+}
+
+.top3-count-wrap {
+    display: flex;
+    align-items: center;
+    gap: 4rpx;
+    margin-top: 8rpx;
+    background: #FFF0F0;
+    padding: 6rpx 16rpx;
+    border-radius: 20rpx;
+}
+
+.heart-icon {
+    font-size: 20rpx;
 }
 
 .top3-count {
-    font-size: 20rpx;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 4rpx;
+    font-size: 22rpx;
+    color: #FF2442;
+    font-weight: 600;
 }
 
-/* 排行列表 */
+/* ========== 排行列表 ========== */
 .rank-list {
     background: #FFF;
     border-radius: 24rpx 24rpx 0 0;
-    padding: 20rpx;
+    margin: 0 16rpx;
+    padding: 0 24rpx;
     min-height: 50vh;
+}
+
+.rank-list-header {
+    padding: 30rpx 0;
+    border-bottom: 2rpx solid #F0F0F0;
+}
+
+.list-title {
+    font-size: 32rpx;
+    font-weight: 700;
+    color: #1A1A1A;
 }
 
 .rank-item {
     display: flex;
     align-items: center;
-    padding: 20rpx 0;
-    border-bottom: 1rpx solid #F0F0F0;
+    padding: 24rpx 0;
+    border-bottom: 1rpx solid #F5F5F5;
+}
+
+.rank-item:last-child {
+    border-bottom: none;
+}
+
+.rank-num-wrap {
+    width: 48rpx;
+    margin-right: 16rpx;
 }
 
 .rank-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 48rpx;
     height: 48rpx;
-    line-height: 48rpx;
-    text-align: center;
     font-size: 28rpx;
-    font-weight: 600;
+    font-weight: 700;
     color: #999;
-    margin-right: 16rpx;
+    background: #F5F7FA;
+    border-radius: 12rpx;
 }
 
 .rank-num.rank-top {
-    color: #FF2442;
+    color: #FFF;
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
 }
 
 .rank-image {
-    width: 100rpx;
-    height: 100rpx;
-    border-radius: 12rpx;
-    margin-right: 16rpx;
+    width: 120rpx;
+    height: 120rpx;
+    border-radius: 16rpx;
+    margin-right: 20rpx;
     flex-shrink: 0;
 }
 
@@ -128,31 +197,100 @@
 
 .rank-title {
     font-size: 28rpx;
-    color: #333;
+    color: #1A1A1A;
+    font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    display: block;
+}
+
+.rank-meta {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
+    margin-top: 8rpx;
+}
+
+.rank-price {
+    font-size: 28rpx;
+    color: #FF2442;
+    font-weight: 700;
 }
 
 .rank-count {
     font-size: 22rpx;
     color: #999;
-    margin-top: 8rpx;
 }
 
 .want-btn {
     width: 72rpx;
     height: 56rpx;
-    line-height: 56rpx;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #FFF0F0;
     border: 2rpx solid #FF2442;
     border-radius: 28rpx;
-    font-size: 28rpx;
     padding: 0;
     margin: 0;
+    flex-shrink: 0;
 }
 
 .want-btn.wanted {
     background: #FF2442;
+    border-color: transparent;
+}
+
+.want-icon {
+    font-size: 28rpx;
+}
+
+/* ========== 加载状态 ========== */
+.load-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40rpx;
+    gap: 12rpx;
+}
+
+.loading-spinner {
+    width: 36rpx;
+    height: 36rpx;
+    border: 4rpx solid #F0F0F0;
+    border-top-color: #FF2442;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 120rpx 40rpx;
+}
+
+.empty-emoji {
+    font-size: 80rpx;
+    margin-bottom: 24rpx;
+}
+
+.empty-title {
+    font-size: 30rpx;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8rpx;
+}
+
+.empty-desc {
+    font-size: 26rpx;
+    color: #999;
 }

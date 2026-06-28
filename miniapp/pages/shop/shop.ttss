@@ -1,0 +1,245 @@
+page {
+    background: #F5F7FA;
+}
+
+.page-shop {
+    min-height: 100vh;
+    padding-bottom: 40rpx;
+}
+
+/* ========== 顶部提示 ========== */
+.shop-notice {
+    display: flex;
+    align-items: center;
+    gap: 12rpx;
+    padding: 20rpx 24rpx;
+    background: linear-gradient(135deg, #FFF5E0 0%, #FFE8CC 100%);
+    margin: 20rpx 24rpx;
+    border-radius: 16rpx;
+    border: 1rpx solid #FFD090;
+}
+
+.notice-icon {
+    font-size: 28rpx;
+}
+
+.notice-text {
+    font-size: 24rpx;
+    color: #FF6B00;
+}
+
+/* ========== 分类标签 ========== */
+.category-scroll {
+    background: #FFF;
+    white-space: nowrap;
+    margin-bottom: 20rpx;
+}
+
+.category-list {
+    display: inline-flex;
+    padding: 20rpx 16rpx;
+    gap: 16rpx;
+}
+
+.category-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14rpx 28rpx;
+    border-radius: 32rpx;
+    background: #F5F7FA;
+    font-size: 26rpx;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.category-item.active {
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+    color: #FFF;
+    font-weight: 600;
+    box-shadow: 0 4rpx 16rpx rgba(255, 36, 66, 0.3);
+}
+
+/* ========== 商品列表 ========== */
+.shop-list {
+    padding: 0 24rpx;
+    display: flex;
+    flex-direction: column;
+    gap: 20rpx;
+}
+
+.shop-item {
+    display: flex;
+    background: #FFF;
+    border-radius: 20rpx;
+    overflow: hidden;
+    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.shop-image {
+    width: 260rpx;
+    height: 260rpx;
+    flex-shrink: 0;
+}
+
+.shop-info {
+    flex: 1;
+    padding: 20rpx;
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-title-wrap {
+    display: flex;
+    align-items: flex-start;
+    gap: 8rpx;
+}
+
+.shop-tag {
+    font-size: 20rpx;
+    color: #FFF;
+    background: linear-gradient(135deg, #FF6B00 0%, #FF8E00 100%);
+    padding: 4rpx 12rpx;
+    border-radius: 8rpx;
+    flex-shrink: 0;
+}
+
+.shop-title {
+    font-size: 28rpx;
+    color: #1A1A1A;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+}
+
+.shop-desc {
+    font-size: 22rpx;
+    color: #999;
+    margin-top: 8rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.shop-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: auto;
+    padding-top: 12rpx;
+}
+
+.shop-price {
+    display: flex;
+    align-items: baseline;
+    gap: 8rpx;
+}
+
+.price-symbol {
+    font-size: 24rpx;
+    color: #FF2442;
+    font-weight: 600;
+}
+
+.price-value {
+    font-size: 36rpx;
+    color: #FF2442;
+    font-weight: 700;
+}
+
+.price-original {
+    font-size: 22rpx;
+    color: #999;
+    text-decoration: line-through;
+}
+
+.shop-sales {
+    font-size: 22rpx;
+    color: #999;
+}
+
+.shop-actions {
+    display: flex;
+    gap: 12rpx;
+    margin-top: 16rpx;
+}
+
+.action-btn {
+    flex: 1;
+    height: 56rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 28rpx;
+    font-size: 24rpx;
+    font-weight: 600;
+    border: none;
+}
+
+.btn-detail {
+    background: #F5F7FA;
+    color: #666;
+    border: 1rpx solid #E0E0E0;
+}
+
+.btn-add {
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+    color: #FFF;
+    box-shadow: 0 4rpx 12rpx rgba(255, 36, 66, 0.3);
+}
+
+.action-btn:active {
+    opacity: 0.8;
+}
+
+/* ========== 加载状态 ========== */
+.load-more {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40rpx;
+    gap: 12rpx;
+}
+
+.loading-spinner {
+    width: 36rpx;
+    height: 36rpx;
+    border: 4rpx solid #F0F0F0;
+    border-top-color: #FF2442;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== 空状态 ========== */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 120rpx 40rpx;
+}
+
+.empty-emoji {
+    font-size: 80rpx;
+    margin-bottom: 24rpx;
+}
+
+.empty-title {
+    font-size: 30rpx;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8rpx;
+}
+
+.empty-desc {
+    font-size: 26rpx;
+    color: #999;
+}

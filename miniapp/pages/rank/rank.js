@@ -40,11 +40,11 @@ Page({
         }).then(list => {
             const items = list.map((item, i) => ({
                 ...item,
-                rank: (this.data.page - 1) * 20 + i + 1
+                rank: (this.data.page - 1) * 20 + i + 1,
+                priceText: (item.price / 100).toFixed(2)
             }));
 
             if (this.data.page === 1) {
-                // 第一页取前3作为 Top3
                 const top3 = items.slice(0, 3);
                 const rankList = items.slice(3);
                 this.setData({
@@ -86,10 +86,13 @@ Page({
         const isWanted = product.is_wanted;
         const key = `rankList[${index}].is_wanted`;
         const countKey = `rankList[${index}].want_count`;
+
         this.setData({
             [key]: !isWanted,
             [countKey]: product.want_count + (isWanted ? -1 : 1)
         });
+
+        tt.vibrateShort({ type: 'medium' });
 
         app.request({
             url: '/wants',

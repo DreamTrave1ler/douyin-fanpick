@@ -1,8 +1,10 @@
-.page-detail {
-    padding-bottom: 140rpx;
+page {
+    background: #F5F7FA;
+    padding-bottom: 120rpx;
 }
 
-.detail-image-wrap {
+/* ========== 图片轮播 ========== */
+.detail-swiper {
     width: 100%;
     height: 600rpx;
 }
@@ -12,51 +14,140 @@
     height: 100%;
 }
 
-.detail-info {
-    margin: 20rpx;
+/* ========== 价格信息 ========== */
+.price-section {
+    background: #FFF;
+    padding: 24rpx;
 }
 
-.detail-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    line-height: 1.5;
-    color: #333;
-}
-
-.detail-price-row {
+.price-main {
     display: flex;
     align-items: baseline;
-    margin-top: 16rpx;
 }
 
-.detail-price {
-    font-size: 44rpx;
+.price-symbol {
+    font-size: 28rpx;
+    color: #FF2442;
+    font-weight: 600;
+}
+
+.price-value {
+    font-size: 52rpx;
     color: #FF2442;
     font-weight: 700;
 }
 
-.detail-wants {
-    font-size: 24rpx;
-    color: #999;
-    margin-left: 20rpx;
-}
-
-.detail-creator {
-    font-size: 24rpx;
-    color: #666;
+.price-meta {
+    display: flex;
+    align-items: center;
+    gap: 16rpx;
     margin-top: 12rpx;
 }
 
-/* 投票区域 */
+.meta-wants,
+.meta-sales {
+    font-size: 24rpx;
+    color: #999;
+}
+
+.meta-divider {
+    color: #E0E0E0;
+}
+
+/* ========== 商品标题 ========== */
+.title-section {
+    background: #FFF;
+    padding: 24rpx;
+    margin-top: 16rpx;
+}
+
+.title-tags {
+    display: flex;
+    gap: 8rpx;
+    margin-bottom: 12rpx;
+}
+
+.tag {
+    font-size: 22rpx;
+    padding: 6rpx 16rpx;
+    border-radius: 8rpx;
+}
+
+.tag-hot {
+    color: #FF6B00;
+    background: #FFF5E0;
+    border: 1rpx solid #FFE0B0;
+}
+
+.tag-douyin {
+    color: #FF2442;
+    background: #FFF0F0;
+    border: 1rpx solid #FFD0D0;
+}
+
+.product-title {
+    font-size: 32rpx;
+    color: #1A1A1A;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* ========== 推荐者 ========== */
+.creator-section {
+    display: flex;
+    align-items: center;
+    background: #FFF;
+    padding: 24rpx;
+    margin-top: 16rpx;
+    gap: 16rpx;
+}
+
+.creator-avatar {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    border: 2rpx solid #F0F0F0;
+}
+
+.creator-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4rpx;
+}
+
+.creator-name {
+    font-size: 28rpx;
+    color: #333;
+    font-weight: 600;
+}
+
+.creator-label {
+    font-size: 22rpx;
+    color: #999;
+}
+
+.creator-time {
+    font-size: 22rpx;
+    color: #CCC;
+}
+
+/* ========== 投票区域 ========== */
 .vote-section {
-    margin: 20rpx;
+    background: #FFF;
+    padding: 30rpx;
+    margin-top: 16rpx;
+}
+
+.vote-header {
     text-align: center;
+    margin-bottom: 24rpx;
 }
 
 .vote-title {
     font-size: 32rpx;
+    color: #1A1A1A;
     font-weight: 600;
-    color: #333;
 }
 
 .vote-desc {
@@ -65,62 +156,141 @@
     margin-top: 8rpx;
 }
 
+.vote-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40rpx;
+    margin-bottom: 30rpx;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8rpx;
+}
+
+.stat-number {
+    font-size: 40rpx;
+    color: #FF2442;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 22rpx;
+    color: #999;
+}
+
+.stat-divider {
+    width: 2rpx;
+    height: 60rpx;
+    background: #F0F0F0;
+}
+
 .vote-btn {
-    margin-top: 30rpx;
-    background: linear-gradient(135deg, #FF2442, #FF6B81);
-    color: #FFF;
-    border: none;
-    border-radius: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12rpx;
     height: 88rpx;
-    line-height: 88rpx;
+    background: linear-gradient(135deg, #FFF0F0 0%, #FFE0E0 100%);
+    border: 2rpx solid #FF2442;
+    color: #FF2442;
+    border-radius: 44rpx;
     font-size: 30rpx;
-    font-weight: 500;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.vote-btn:active {
+    opacity: 0.8;
+    transform: scale(0.98);
 }
 
 .vote-btn.voted {
-    background: #FFF;
-    color: #FF2442;
-    border: 2rpx solid #FF2442;
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+    color: #FFF;
+    border-color: transparent;
+    box-shadow: 0 8rpx 24rpx rgba(255, 36, 66, 0.3);
 }
 
-.vote-count {
-    font-size: 24rpx;
-    color: #999;
-    margin-top: 16rpx;
+.vote-icon {
+    font-size: 36rpx;
 }
 
-/* 底部操作栏 */
+/* ========== 操作栏 ========== */
 .action-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     display: flex;
-    padding: 16rpx 20rpx;
+    gap: 16rpx;
+    padding: 16rpx 24rpx;
     background: #FFF;
-    box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
-    padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+    box-shadow: 0 -4rpx 16rpx rgba(0, 0, 0, 0.06);
+    z-index: 100;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8rpx;
+    height: 80rpx;
+    border-radius: 40rpx;
+    font-size: 28rpx;
+    font-weight: 600;
+    border: none;
 }
 
 .action-share {
-    flex: 1;
-    height: 80rpx;
-    line-height: 80rpx;
-    background: #FFF;
-    color: #FF2442;
-    border: 2rpx solid #FF2442;
-    border-radius: 40rpx;
-    font-size: 28rpx;
-    margin-right: 16rpx;
+    background: #F5F7FA;
+    color: #666;
+    border: 1rpx solid #E0E0E0;
 }
 
 .action-shop {
-    flex: 1;
-    height: 80rpx;
-    line-height: 80rpx;
-    background: #FF2442;
+    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
     color: #FFF;
-    border: none;
-    border-radius: 40rpx;
-    font-size: 28rpx;
+    box-shadow: 0 4rpx 16rpx rgba(255, 36, 66, 0.3);
+}
+
+.action-btn:active {
+    opacity: 0.8;
+}
+
+.action-icon {
+    font-size: 32rpx;
+}
+
+.safe-bottom {
+    height: 120rpx;
+}
+
+/* ========== 加载状态 ========== */
+.loading-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 20rpx;
+}
+
+.loading-spinner {
+    width: 48rpx;
+    height: 48rpx;
+    border: 4rpx solid #F0F0F0;
+    border-top-color: #FF2442;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
 }

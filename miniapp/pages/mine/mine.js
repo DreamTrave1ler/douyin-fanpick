@@ -3,7 +3,12 @@ const app = getApp();
 Page({
     data: {
         userInfo: null,
-        myWants: []
+        myWants: [],
+        stats: {
+            wantCount: 0,
+            productCount: 0,
+            fansCount: 0
+        }
     },
 
     onLoad() {
@@ -14,6 +19,7 @@ Page({
         if (app.globalData.token) {
             this.loadUserInfo();
             this.loadMyWants();
+            this.loadStats();
         }
     },
 
@@ -32,7 +38,20 @@ Page({
     loadMyWants() {
         app.request({ url: '/wants/mine', data: { size: 10 } })
             .then(list => {
-                this.setData({ myWants: list });
+                const wants = list.map(w => ({
+                    ...w,
+                    priceText: (w.price / 100).toFixed(2)
+                }));
+                this.setData({ myWants: wants });
+            })
+            .catch(() => {});
+    },
+
+    // 加载统计数据
+    loadStats() {
+        app.request({ url: '/user/stats' })
+            .then(stats => {
+                this.setData({ stats });
             })
             .catch(() => {});
     },
@@ -45,6 +64,7 @@ Page({
                 tt.hideLoading();
                 this.setData({ userInfo: user });
                 this.loadMyWants();
+                this.loadStats();
                 tt.showToast({ title: '登录成功', icon: 'success' });
             })
             .catch(err => {
@@ -88,10 +108,40 @@ Page({
         tt.navigateTo({ url: '/pages/creator/stats/stats' });
     },
 
+    // 跳转商城
+    goShop() {
+        tt.navigateTo({ url: '/pages/shop/shop' });
+    },
+
+    // 跳转搜索
+    goSearch() {
+        tt.navigateTo({ url: '/pages/search/search' });
+    },
+
+    // 跳转排行榜
+    goRank() {
+        tt.switchTab({ url: '/pages/rank/rank' });
+    },
+
+    // 跳转我的投票
+    goMyWants() {
+        // 可以跳转到专门的页面
+    },
+
     // 跳转详情
     goDetail(e) {
         const id = e.currentTarget.dataset.id;
         tt.navigateTo({ url: `/pages/detail/detail?id=${id}` });
+    },
+
+    // 设置
+    goSettings() {
+        tt.showToast({ title: '开发中', icon: 'none' });
+    },
+
+    // 联系客服
+    contactService() {
+        tt.showToast({ title: '开发中', icon: 'none' });
     },
 
     // 分享
