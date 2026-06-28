@@ -340,6 +340,21 @@ page {
     gap: 20rpx;
 }
 
+/* 平板适配 */
+@media screen and (min-width: 768px) {
+    .menu-section {
+        flex-direction: row;
+    }
+
+    .menu-card {
+        flex: 1;
+    }
+
+    .panel-grid {
+        gap: 20rpx;
+    }
+}
+
 .menu-card {
     background: #FFF;
     border-radius: 20rpx;

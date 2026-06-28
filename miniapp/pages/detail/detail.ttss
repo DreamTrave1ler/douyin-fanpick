@@ -3,6 +3,38 @@ page {
     padding-bottom: 120rpx;
 }
 
+/* 平板适配 - 左右布局 */
+@media screen and (min-width: 768px) {
+    .page-detail {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 24rpx 40rpx;
+        gap: 24rpx;
+    }
+
+    .detail-swiper {
+        width: 50%;
+        height: 600rpx;
+        border-radius: 20rpx;
+        overflow: hidden;
+    }
+
+    .price-section,
+    .title-section,
+    .creator-section,
+    .vote-section {
+        width: calc(50% - 12rpx);
+        margin: 0;
+    }
+
+    .action-bar {
+        max-width: 1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 20rpx 20rpx 0 0;
+    }
+}
+
 /* ========== 图片轮播 ========== */
 .detail-swiper {
     width: 100%;

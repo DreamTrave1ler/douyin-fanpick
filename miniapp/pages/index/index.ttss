@@ -246,6 +246,33 @@ page {
     transition: transform 0.2s ease;
 }
 
+/* 平板适配 - 3列 */
+@media screen and (min-width: 768px) {
+    .product-grid {
+        padding: 0 24rpx;
+        gap: 20rpx;
+    }
+
+    .product-card {
+        width: calc(33.333% - 14rpx);
+    }
+
+    .card-image-wrap {
+        height: 380rpx;
+    }
+}
+
+/* 大平板/桌面 - 4列 */
+@media screen and (min-width: 1024px) {
+    .product-card {
+        width: calc(25% - 15rpx);
+    }
+
+    .card-image-wrap {
+        height: 400rpx;
+    }
+}
+
 .product-card:active {
     transform: scale(0.98);
 }

@@ -137,6 +137,35 @@ page {
     min-height: 50vh;
 }
 
+/* 平板适配 */
+@media screen and (min-width: 768px) {
+    .rank-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16rpx;
+        padding: 20rpx;
+    }
+
+    .rank-list-header {
+        width: 100%;
+    }
+
+    .rank-item {
+        width: calc(50% - 8rpx);
+        background: #FFF;
+        border-radius: 16rpx;
+        padding: 20rpx;
+        border-bottom: none;
+        box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .rank-item {
+        width: calc(33.333% - 11rpx);
+    }
+}
+
 .rank-list-header {
     padding: 30rpx 0;
     border-bottom: 2rpx solid #F0F0F0;
