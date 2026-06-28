@@ -3,7 +3,7 @@
  * 统一管理所有接口地址
  */
 
-const BASE_URL = 'https://your-server.com/api'; // 替换为实际服务端地址
+const BASE_URL = 'https://douyin-fanpick-production.up.railway.app/api';
 
 const API = {
     // 认证
