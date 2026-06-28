@@ -1,5 +1,5 @@
 page {
-    background: #FAFAFA;
+    background: #0A0A0A;
 }
 
 /* ========== 返回按钮 ========== */
@@ -7,24 +7,31 @@ page {
     position: fixed;
     top: 40rpx;
     left: 32rpx;
-    width: 72rpx;
-    height: 72rpx;
+    width: 64rpx;
+    height: 64rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(0, 0, 0, 0.6);
     border-radius: 50%;
-    font-size: 36rpx;
-    color: #1A1A1A;
     z-index: 100;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+}
+
+.back-arrow {
+    width: 20rpx;
+    height: 20rpx;
+    border-left: 3rpx solid #FFF;
+    border-bottom: 3rpx solid #FFF;
+    transform: rotate(45deg);
+    margin-left: 4rpx;
 }
 
 /* ========== 产品图片 ========== */
 .hero {
     width: 100%;
     height: 750rpx;
+    position: relative;
 }
 
 .hero image {
@@ -32,10 +39,20 @@ page {
     height: 100%;
 }
 
+.hero-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200rpx;
+    background: linear-gradient(transparent, #0A0A0A);
+}
+
 /* ========== 价格区域 ========== */
 .price-area {
-    background: #FFF;
     padding: 32rpx;
+    position: relative;
+    margin-top: -40rpx;
 }
 
 .price-main {
@@ -46,98 +63,128 @@ page {
 .symbol {
     font-size: 28rpx;
     font-weight: 600;
-    color: #1A1A1A;
+    color: #FF3B30;
 }
 
 .amount {
-    font-size: 56rpx;
-    font-weight: 700;
-    color: #1A1A1A;
+    font-size: 64rpx;
+    font-weight: 800;
+    color: #FFF;
     margin-left: 4rpx;
+    letter-spacing: -2rpx;
 }
 
 .price-meta {
     display: flex;
     align-items: center;
-    gap: 12rpx;
-    margin-top: 12rpx;
-    font-size: 24rpx;
-    color: #999;
+    gap: 24rpx;
+    margin-top: 16rpx;
 }
 
-.dot {
-    color: #E0E0E0;
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8rpx;
+    font-size: 24rpx;
+    color: #666;
+}
+
+.meta-dot {
+    width: 6rpx;
+    height: 6rpx;
+    background: #FF3B30;
+    border-radius: 50%;
 }
 
 /* ========== 商品信息 ========== */
 .info-section {
-    background: #FFF;
-    padding: 32rpx;
-    margin-top: 16rpx;
+    padding: 0 32rpx 32rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .product-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #1A1A1A;
-    line-height: 1.6;
+    font-size: 34rpx;
+    font-weight: 700;
+    color: #FFF;
+    line-height: 1.5;
 }
 
 .creator-row {
     display: flex;
     align-items: center;
-    gap: 12rpx;
+    gap: 16rpx;
     margin-top: 24rpx;
-    padding-top: 24rpx;
-    border-top: 1rpx solid #F0F0F0;
 }
 
-.creator-avatar {
+.creator-avatar-wrap {
     width: 48rpx;
     height: 48rpx;
     border-radius: 50%;
+    overflow: hidden;
+    border: 2rpx solid #333;
+}
+
+.creator-avatar {
+    width: 100%;
+    height: 100%;
+}
+
+.creator-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rpx;
+}
+
+.creator-label {
+    font-size: 20rpx;
+    color: #555;
 }
 
 .creator-name {
     font-size: 26rpx;
-    color: #666;
+    color: #E0E0E0;
+    font-weight: 600;
 }
 
 /* ========== 投票区域 ========== */
 .vote-section {
-    background: #FFF;
-    padding: 40rpx 32rpx;
-    margin-top: 16rpx;
+    padding: 48rpx 32rpx;
     text-align: center;
 }
 
-.vote-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #1A1A1A;
+.vote-question {
+    font-size: 36rpx;
+    font-weight: 700;
+    color: #FFF;
     display: block;
 }
 
-.vote-desc {
+.vote-hint {
     font-size: 24rpx;
-    color: #999;
+    color: #555;
     margin-top: 8rpx;
     display: block;
 }
 
+.vote-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 40rpx;
+}
+
 .vote-btn {
-    display: inline-flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12rpx;
-    width: 400rpx;
+    gap: 16rpx;
+    width: 320rpx;
     height: 88rpx;
-    background: #1A1A1A;
-    color: #FFF;
-    border-radius: 44rpx;
-    font-size: 30rpx;
-    font-weight: 600;
-    margin-top: 32rpx;
+    background: #FFF;
+    color: #0A0A0A;
+    border-radius: 4rpx;
+    font-size: 28rpx;
+    font-weight: 800;
+    letter-spacing: 4rpx;
     transition: all 0.3s;
 }
 
@@ -146,13 +193,48 @@ page {
 }
 
 .vote-btn.active {
-    background: #FFF;
-    color: #1A1A1A;
-    border: 2rpx solid #E0E0E0;
+    background: #FF3B30;
+    color: #FFF;
 }
 
-.vote-icon {
-    font-size: 32rpx;
+.vote-icon-wrap {
+    width: 32rpx;
+    height: 32rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vote-heart {
+    width: 24rpx;
+    height: 24rpx;
+    border: 3rpx solid currentColor;
+    border-radius: 50% 50% 0 0;
+    transform: rotate(-45deg);
+    position: relative;
+}
+
+.vote-heart.filled {
+    background: currentColor;
+}
+
+.vote-count {
+    margin-top: 24rpx;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8rpx;
+}
+
+.count-num {
+    font-size: 48rpx;
+    font-weight: 800;
+    color: #FF3B30;
+}
+
+.count-label {
+    font-size: 24rpx;
+    color: #555;
 }
 
 /* ========== 底部操作栏 ========== */
@@ -164,33 +246,50 @@ page {
     display: flex;
     align-items: center;
     padding: 16rpx 32rpx;
-    background: #FFF;
-    box-shadow: 0 -1rpx 0 #F0F0F0;
+    background: #111;
     padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
 }
 
-.action-item {
+.action-share {
+    width: 72rpx;
+    height: 72rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8rpx;
-    height: 80rpx;
-    padding: 0 32rpx;
-    font-size: 28rpx;
-    color: #666;
+    border: 2rpx solid #333;
+    border-radius: 4rpx;
 }
 
-.action-item.primary {
+.share-icon {
+    width: 28rpx;
+    height: 28rpx;
+    position: relative;
+}
+
+.share-arrow {
+    width: 20rpx;
+    height: 20rpx;
+    border-right: 3rpx solid #999;
+    border-top: 3rpx solid #999;
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.action-buy {
     flex: 1;
-    background: #1A1A1A;
+    height: 72rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FF3B30;
     color: #FFF;
-    border-radius: 40rpx;
-    margin-left: 24rpx;
-    font-weight: 600;
-}
-
-.action-icon {
-    font-size: 32rpx;
+    border-radius: 4rpx;
+    margin-left: 16rpx;
+    font-size: 26rpx;
+    font-weight: 800;
+    letter-spacing: 4rpx;
 }
 
 /* ========== 加载页面 ========== */
@@ -199,19 +298,33 @@ page {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    background: #0A0A0A;
 }
 
-.spinner {
-    width: 40rpx;
-    height: 40rpx;
-    border: 4rpx solid #F0F0F0;
-    border-top-color: #1A1A1A;
+.loader {
+    display: flex;
+    gap: 12rpx;
+}
+
+.loader-dot {
+    width: 8rpx;
+    height: 8rpx;
+    background: #FF3B30;
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: pulse 1.2s ease-in-out infinite;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.loader-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.loader-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1); }
 }
 
 /* ========== 平板适配 ========== */
@@ -225,15 +338,12 @@ page {
     .hero {
         width: 50%;
         height: 80vh;
-        border-radius: 0 0 0 24rpx;
-        overflow: hidden;
     }
 
     .price-area,
     .info-section,
     .vote-section {
         width: 50%;
-        margin: 0;
     }
 
     .action-bar {

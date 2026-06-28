@@ -1,12 +1,11 @@
 page {
-    background: #FAFAFA;
+    background: #0A0A0A;
 }
 
 /* ========== 用户区域 ========== */
 .user-area {
-    background: #FFF;
     padding: 60rpx 32rpx 40rpx;
-    margin-bottom: 16rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .user-info {
@@ -15,42 +14,62 @@ page {
 }
 
 .avatar-wrap {
+    position: relative;
     margin-right: 24rpx;
 }
 
 .avatar {
-    width: 96rpx;
-    height: 96rpx;
+    width: 88rpx;
+    height: 88rpx;
     border-radius: 50%;
-    background: #F5F5F5;
+}
+
+.avatar-border {
+    position: absolute;
+    top: -4rpx;
+    left: -4rpx;
+    right: -4rpx;
+    bottom: -4rpx;
+    border: 2rpx solid #FF3B30;
+    border-radius: 50%;
+}
+
+.avatar-placeholder {
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: 50%;
+    border: 2rpx dashed #333;
 }
 
 .user-text {
     flex: 1;
 }
 
-.username {
-    font-size: 34rpx;
+.user-label {
+    font-size: 18rpx;
+    color: #FF3B30;
+    letter-spacing: 4rpx;
     font-weight: 700;
-    color: #1A1A1A;
     display: block;
+    margin-bottom: 4rpx;
 }
 
-.user-role {
-    font-size: 24rpx;
-    color: #999;
-    margin-top: 4rpx;
+.username {
+    font-size: 36rpx;
+    font-weight: 800;
+    color: #FFF;
     display: block;
 }
 
 .login-btn {
     display: inline-flex;
-    padding: 16rpx 40rpx;
-    background: #1A1A1A;
-    color: #FFF;
-    border-radius: 32rpx;
-    font-size: 28rpx;
-    font-weight: 600;
+    padding: 16rpx 48rpx;
+    border: 2rpx solid #FF3B30;
+    color: #FF3B30;
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    font-weight: 800;
+    letter-spacing: 4rpx;
 }
 
 /* 数据统计 */
@@ -60,7 +79,7 @@ page {
     justify-content: space-around;
     margin-top: 40rpx;
     padding-top: 32rpx;
-    border-top: 1rpx solid #F0F0F0;
+    border-top: 1rpx solid #1A1A1A;
 }
 
 .stat {
@@ -71,37 +90,38 @@ page {
 }
 
 .stat-num {
-    font-size: 36rpx;
-    font-weight: 700;
-    color: #1A1A1A;
+    font-size: 40rpx;
+    font-weight: 800;
+    color: #FFF;
 }
 
 .stat-label {
-    font-size: 22rpx;
-    color: #999;
+    font-size: 20rpx;
+    color: #555;
+    letter-spacing: 2rpx;
 }
 
 .stat-divider {
     width: 1rpx;
     height: 48rpx;
-    background: #F0F0F0;
+    background: #1A1A1A;
 }
 
 /* ========== 创作者面板 ========== */
 .panel {
-    background: #FFF;
     padding: 32rpx;
-    margin-bottom: 16rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .panel-header {
     margin-bottom: 24rpx;
 }
 
-.panel-title {
-    font-size: 28rpx;
-    font-weight: 600;
-    color: #1A1A1A;
+.panel-label {
+    font-size: 18rpx;
+    color: #555;
+    letter-spacing: 4rpx;
+    font-weight: 700;
 }
 
 .panel-grid {
@@ -117,19 +137,93 @@ page {
 }
 
 .panel-icon {
-    font-size: 40rpx;
-    width: 80rpx;
-    height: 80rpx;
+    width: 72rpx;
+    height: 72rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #F5F5F5;
-    border-radius: 20rpx;
+    border: 2rpx solid #333;
+    border-radius: 4rpx;
 }
 
 .panel-text {
-    font-size: 24rpx;
-    color: #666;
+    font-size: 22rpx;
+    color: #888;
+    letter-spacing: 2rpx;
+}
+
+/* 图标 */
+.icon-chart {
+    width: 24rpx;
+    height: 24rpx;
+    border-bottom: 3rpx solid #999;
+    border-left: 3rpx solid #999;
+    position: relative;
+}
+
+.icon-chart::before {
+    content: '';
+    position: absolute;
+    bottom: 4rpx;
+    left: 4rpx;
+    width: 6rpx;
+    height: 12rpx;
+    background: #FF3B30;
+}
+
+.icon-box {
+    width: 24rpx;
+    height: 20rpx;
+    border: 3rpx solid #999;
+    position: relative;
+}
+
+.icon-box::after {
+    content: '';
+    position: absolute;
+    top: -8rpx;
+    left: 2rpx;
+    right: 2rpx;
+    height: 8rpx;
+    border: 3rpx solid #999;
+    border-bottom: none;
+}
+
+.icon-users {
+    width: 20rpx;
+    height: 20rpx;
+    border: 3rpx solid #999;
+    border-radius: 50%;
+    position: relative;
+}
+
+.icon-users::after {
+    content: '';
+    position: absolute;
+    bottom: -8rpx;
+    left: -2rpx;
+    right: -2rpx;
+    height: 10rpx;
+    border: 3rpx solid #999;
+    border-bottom: none;
+    border-radius: 50% 50% 0 0;
+}
+
+.icon-plus {
+    width: 24rpx;
+    height: 3rpx;
+    background: #999;
+    position: relative;
+}
+
+.icon-plus::after {
+    content: '';
+    position: absolute;
+    top: -10rpx;
+    left: 10rpx;
+    width: 3rpx;
+    height: 24rpx;
+    background: #999;
 }
 
 /* ========== 开通创作者 ========== */
@@ -137,53 +231,53 @@ page {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: #FFF;
     padding: 32rpx;
-    margin-bottom: 16rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .upgrade-content {
     flex: 1;
 }
 
-.upgrade-title {
-    font-size: 28rpx;
-    font-weight: 600;
-    color: #1A1A1A;
+.upgrade-label {
+    font-size: 18rpx;
+    color: #FF3B30;
+    letter-spacing: 4rpx;
+    font-weight: 700;
     display: block;
+    margin-bottom: 8rpx;
 }
 
 .upgrade-desc {
     font-size: 24rpx;
-    color: #999;
-    margin-top: 4rpx;
+    color: #666;
     display: block;
 }
 
 .upgrade-btn {
     padding: 16rpx 32rpx;
-    background: #1A1A1A;
-    color: #FFF;
-    border-radius: 32rpx;
-    font-size: 26rpx;
-    font-weight: 600;
+    border: 2rpx solid #FF3B30;
+    color: #FF3B30;
+    border-radius: 4rpx;
+    font-size: 24rpx;
+    font-weight: 700;
 }
 
 /* ========== 我的投票 ========== */
 .section {
-    background: #FFF;
     padding: 32rpx;
-    margin-bottom: 16rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .section-header {
     margin-bottom: 24rpx;
 }
 
-.section-title {
-    font-size: 28rpx;
-    font-weight: 600;
-    color: #1A1A1A;
+.section-label {
+    font-size: 18rpx;
+    color: #555;
+    letter-spacing: 4rpx;
+    font-weight: 700;
 }
 
 .wants-scroll {
@@ -206,37 +300,36 @@ page {
 .want-img {
     width: 180rpx;
     height: 180rpx;
-    border-radius: 12rpx;
-    background: #F5F5F5;
+    background: #111;
 }
 
 .want-title {
-    font-size: 24rpx;
-    color: #1A1A1A;
+    font-size: 22rpx;
+    color: #E0E0E0;
     margin-top: 12rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: 600;
 }
 
 .want-price {
-    font-size: 26rpx;
-    color: #1A1A1A;
-    font-weight: 600;
+    font-size: 24rpx;
+    color: #FFF;
+    font-weight: 700;
     margin-top: 4rpx;
 }
 
 /* ========== 菜单 ========== */
 .menu {
-    background: #FFF;
-    margin-bottom: 16rpx;
+    border-bottom: 1rpx solid #1A1A1A;
 }
 
 .menu-item {
     display: flex;
     align-items: center;
     padding: 28rpx 32rpx;
-    border-bottom: 1rpx solid #F5F5F5;
+    border-bottom: 1rpx solid #111;
 }
 
 .menu-item:last-child {
@@ -244,29 +337,113 @@ page {
 }
 
 .menu-icon {
-    font-size: 28rpx;
-    width: 48rpx;
-    text-align: center;
-    margin-right: 16rpx;
+    width: 40rpx;
+    height: 40rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20rpx;
+}
+
+/* 菜单图标 */
+.icon-shop {
+    width: 20rpx;
+    height: 20rpx;
+    border: 2rpx solid #666;
+    border-radius: 4rpx;
+}
+
+.icon-search {
+    width: 18rpx;
+    height: 18rpx;
+    border: 2rpx solid #666;
+    border-radius: 50%;
+    position: relative;
+}
+
+.icon-search::after {
+    content: '';
+    position: absolute;
+    bottom: -6rpx;
+    right: -6rpx;
+    width: 8rpx;
+    height: 2rpx;
+    background: #666;
+    transform: rotate(45deg);
+}
+
+.icon-rank {
+    width: 20rpx;
+    height: 16rpx;
+    border-bottom: 2rpx solid #666;
+    position: relative;
+}
+
+.icon-rank::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 6rpx;
+    height: 12rpx;
+    background: #666;
+}
+
+.icon-rank::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10rpx;
+    width: 6rpx;
+    height: 8rpx;
+    background: #666;
+}
+
+.icon-share {
+    width: 18rpx;
+    height: 18rpx;
+    border-right: 2rpx solid #666;
+    border-top: 2rpx solid #666;
+    transform: rotate(-45deg);
+}
+
+.icon-info {
+    width: 20rpx;
+    height: 20rpx;
+    border: 2rpx solid #666;
+    border-radius: 50%;
+    position: relative;
+}
+
+.icon-info::after {
+    content: '';
+    position: absolute;
+    top: 4rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rpx;
+    height: 8rpx;
+    background: #666;
 }
 
 .menu-text {
     flex: 1;
     font-size: 28rpx;
-    color: #1A1A1A;
+    color: #E0E0E0;
 }
 
 .menu-arrow {
-    font-size: 28rpx;
-    color: #CCC;
+    font-size: 24rpx;
+    color: #333;
 }
 
 /* ========== 版本 ========== */
 .version {
     text-align: center;
     padding: 48rpx;
-    font-size: 22rpx;
-    color: #CCC;
+    font-size: 20rpx;
+    color: #333;
+    letter-spacing: 4rpx;
 }
 
 /* ========== 平板适配 ========== */

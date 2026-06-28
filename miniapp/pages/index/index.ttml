@@ -2,11 +2,12 @@
     <!-- 顶部导航 -->
     <view class="nav-bar">
         <view class="nav-left">
-            <text class="logo">FanPick</text>
+            <view class="logo-mark"></view>
+            <text class="logo-text">FANPICK</text>
         </view>
         <view class="nav-right">
-            <view class="search-btn" bindtap="goSearch">
-                <text class="icon">⌕</text>
+            <view class="nav-btn" bindtap="goSearch">
+                <view class="search-line"></view>
             </view>
         </view>
     </view>
@@ -15,25 +16,25 @@
     <scroll-view class="tabs" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
         <view class="tab-list">
             <view class="tab {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">
-                <text>全部</text>
+                <text>ALL</text>
             </view>
             <view class="tab {{currentCategory === 'hot' ? 'active' : ''}}" bindtap="switchCategory" data-category="hot">
-                <text>热门</text>
+                <text>HOT</text>
             </view>
             <view class="tab {{currentCategory === 'new' ? 'active' : ''}}" bindtap="switchCategory" data-category="new">
-                <text>新品</text>
+                <text>NEW</text>
             </view>
             <view class="tab {{currentCategory === 'food' ? 'active' : ''}}" bindtap="switchCategory" data-category="food">
-                <text>美食</text>
+                <text>FOOD</text>
             </view>
             <view class="tab {{currentCategory === 'beauty' ? 'active' : ''}}" bindtap="switchCategory" data-category="beauty">
-                <text>美妆</text>
+                <text>BEAUTY</text>
             </view>
             <view class="tab {{currentCategory === 'digital' ? 'active' : ''}}" bindtap="switchCategory" data-category="digital">
-                <text>数码</text>
+                <text>TECH</text>
             </view>
             <view class="tab {{currentCategory === 'clothing' ? 'active' : ''}}" bindtap="switchCategory" data-category="clothing">
-                <text>服饰</text>
+                <text>FASHION</text>
             </view>
         </view>
     </scroll-view>
@@ -43,15 +44,20 @@
         <view class="product-card" tt:for="{{products}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
             <view class="card-img">
                 <image src="{{item.image}}" mode="aspectFill" lazy-load="{{true}}" />
-                <view class="card-badge" tt:if="{{item.want_count > 10}}">热</view>
+                <view class="card-number">
+                    <text>{{index + 1 < 10 ? '0' : ''}}{{index + 1}}</text>
+                </view>
             </view>
             <view class="card-body">
                 <text class="card-title">{{item.title}}</text>
                 <view class="card-footer">
-                    <text class="card-price">¥{{item.priceText}}</text>
+                    <view class="card-price-row">
+                        <text class="card-currency">¥</text>
+                        <text class="card-price">{{item.priceText}}</text>
+                    </view>
                     <view class="card-want {{item.is_wanted ? 'active' : ''}}" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
-                        <text>{{item.is_wanted ? '♥' : '♡'}}</text>
-                        <text class="want-num">{{item.want_count}}</text>
+                        <view class="want-dot {{item.is_wanted ? 'filled' : ''}}"></view>
+                        <text class="want-count">{{item.want_count}}</text>
                     </view>
                 </view>
             </view>
@@ -60,19 +66,23 @@
 
     <!-- 空状态 -->
     <view class="empty" tt:if="{{!loading && !products.length}}">
-        <text class="empty-icon">◇</text>
-        <text class="empty-text">暂无商品</text>
+        <view class="empty-shape"></view>
+        <text class="empty-text">NO ITEMS YET</text>
         <view class="empty-btn" bindtap="goSearch">
-            <text>探索商品</text>
+            <text>EXPLORE</text>
         </view>
     </view>
 
     <!-- 加载状态 -->
     <view class="loading" tt:if="{{loading}}">
-        <view class="spinner"></view>
+        <view class="loader">
+            <view class="loader-dot"></view>
+            <view class="loader-dot"></view>
+            <view class="loader-dot"></view>
+        </view>
     </view>
 
     <view class="no-more" tt:if="{{noMore && products.length}}">
-        <text>—</text>
+        <view class="end-line"></view>
     </view>
 </view>
