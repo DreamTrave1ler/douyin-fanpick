@@ -1,86 +1,73 @@
 <view class="page-rank">
-    <!-- 顶部标题 -->
-    <view class="rank-header">
-        <text class="header-title">🏆 人气排行榜</text>
-        <text class="header-desc">粉丝最想要的商品 TOP 榜</text>
+    <!-- 顶部 -->
+    <view class="header">
+        <text class="header-title">排行榜</text>
+        <text class="header-sub">最受欢迎的商品</text>
     </view>
 
-    <!-- Top 3 展示 -->
-    <view class="top3-section" tt:if="{{top3.length >= 3}}">
+    <!-- Top 3 -->
+    <view class="top3" tt:if="{{top3.length >= 3}}">
         <!-- 第2名 -->
-        <view class="top3-card top2" bindtap="goDetail" data-id="{{top3[1].id}}">
-            <view class="top3-badge">🥈</view>
-            <view class="top3-avatar-wrap">
-                <image class="top3-image" src="{{top3[1].image}}" mode="aspectFill" />
+        <view class="top-item second" bindtap="goDetail" data-id="{{top3[1].id}}">
+            <view class="top-rank">2</view>
+            <view class="top-img">
+                <image src="{{top3[1].image}}" mode="aspectFill" />
             </view>
-            <text class="top3-title">{{top3[1].title}}</text>
-            <view class="top3-count-wrap">
-                <text class="heart-icon">❤️</text>
-                <text class="top3-count">{{top3[1].want_count}}</text>
-            </view>
+            <text class="top-title">{{top3[1].title}}</text>
+            <text class="top-count">{{top3[1].want_count}} 想要</text>
         </view>
 
         <!-- 第1名 -->
-        <view class="top3-card top1" bindtap="goDetail" data-id="{{top3[0].id}}">
-            <view class="top3-crown">👑</view>
-            <view class="top3-avatar-wrap">
-                <image class="top3-image" src="{{top3[0].image}}" mode="aspectFill" />
+        <view class="top-item first" bindtap="goDetail" data-id="{{top3[0].id}}">
+            <view class="top-crown">♛</view>
+            <view class="top-rank">1</view>
+            <view class="top-img">
+                <image src="{{top3[0].image}}" mode="aspectFill" />
             </view>
-            <text class="top3-title">{{top3[0].title}}</text>
-            <view class="top3-count-wrap">
-                <text class="heart-icon">❤️</text>
-                <text class="top3-count">{{top3[0].want_count}}</text>
-            </view>
+            <text class="top-title">{{top3[0].title}}</text>
+            <text class="top-count">{{top3[0].want_count}} 想要</text>
         </view>
 
         <!-- 第3名 -->
-        <view class="top3-card top3" bindtap="goDetail" data-id="{{top3[2].id}}">
-            <view class="top3-badge">🥉</view>
-            <view class="top3-avatar-wrap">
-                <image class="top3-image" src="{{top3[2].image}}" mode="aspectFill" />
+        <view class="top-item third" bindtap="goDetail" data-id="{{top3[2].id}}">
+            <view class="top-rank">3</view>
+            <view class="top-img">
+                <image src="{{top3[2].image}}" mode="aspectFill" />
             </view>
-            <text class="top3-title">{{top3[2].title}}</text>
-            <view class="top3-count-wrap">
-                <text class="heart-icon">❤️</text>
-                <text class="top3-count">{{top3[2].want_count}}</text>
-            </view>
+            <text class="top-title">{{top3[2].title}}</text>
+            <text class="top-count">{{top3[2].want_count}} 想要</text>
         </view>
     </view>
 
-    <!-- 完整排行列表 -->
-    <view class="rank-list">
-        <view class="rank-list-header">
+    <!-- 完整榜单 -->
+    <view class="list-section">
+        <view class="list-header">
             <text class="list-title">完整榜单</text>
         </view>
 
-        <view class="rank-item" tt:for="{{rankList}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
-            <view class="rank-num-wrap">
-                <text class="rank-num {{item.rank <= 3 ? 'rank-top' : ''}}">{{item.rank}}</text>
+        <view class="list-item" tt:for="{{rankList}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
+            <view class="item-rank {{item.rank <= 3 ? 'top' : ''}}">
+                <text>{{item.rank}}</text>
             </view>
-            <image class="rank-image" src="{{item.image}}" mode="aspectFill" />
-            <view class="rank-info">
-                <text class="rank-title">{{item.title}}</text>
-                <view class="rank-meta">
-                    <text class="rank-price">¥{{item.priceText}}</text>
-                    <text class="rank-count">{{item.want_count}} 人想要</text>
-                </view>
+            <image class="item-img" src="{{item.image}}" mode="aspectFill" />
+            <view class="item-info">
+                <text class="item-title">{{item.title}}</text>
+                <text class="item-price">¥{{item.priceText}}</text>
             </view>
-            <button class="want-btn {{item.is_wanted ? 'wanted' : ''}}" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
-                <text class="want-icon">{{item.is_wanted ? '❤️' : '🤍'}}</text>
-            </button>
+            <view class="item-want {{item.is_wanted ? 'active' : ''}}" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
+                <text>{{item.is_wanted ? '♥' : '♡'}}</text>
+            </view>
         </view>
     </view>
 
-    <!-- 加载更多 -->
-    <view class="load-more" tt:if="{{loading}}">
-        <view class="loading-spinner"></view>
-        <text>加载中...</text>
+    <!-- 加载状态 -->
+    <view class="loading" tt:if="{{loading}}">
+        <view class="spinner"></view>
     </view>
 
     <!-- 空状态 -->
-    <view class="empty-state" tt:if="{{!loading && !top3.length && !rankList.length}}">
-        <text class="empty-emoji">🏆</text>
-        <text class="empty-title">暂无排行数据</text>
-        <text class="empty-desc">快去为你喜欢的商品投票吧</text>
+    <view class="empty" tt:if="{{!loading && !top3.length}}">
+        <text class="empty-icon">◇</text>
+        <text class="empty-text">暂无排行数据</text>
     </view>
 </view>

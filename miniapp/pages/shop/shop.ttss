@@ -1,128 +1,103 @@
 page {
-    background: #F5F7FA;
+    background: #FAFAFA;
 }
 
-.page-shop {
-    min-height: 100vh;
-    padding-bottom: 40rpx;
-}
-
-/* ========== 顶部提示 ========== */
-.shop-notice {
-    display: flex;
-    align-items: center;
-    gap: 12rpx;
-    padding: 20rpx 24rpx;
-    background: linear-gradient(135deg, #FFF5E0 0%, #FFE8CC 100%);
-    margin: 20rpx 24rpx;
-    border-radius: 16rpx;
-    border: 1rpx solid #FFD090;
-}
-
-.notice-icon {
-    font-size: 28rpx;
-}
-
-.notice-text {
+/* ========== 提示 ========== */
+.notice {
+    padding: 20rpx 32rpx;
+    background: #FFF8E1;
     font-size: 24rpx;
-    color: #FF6B00;
+    color: #F57C00;
 }
 
-/* ========== 分类标签 ========== */
-.category-scroll {
+/* ========== 分类 ========== */
+.tabs {
     background: #FFF;
     white-space: nowrap;
-    margin-bottom: 20rpx;
+    border-bottom: 1rpx solid #F0F0F0;
 }
 
-.category-list {
+.tab-list {
     display: inline-flex;
-    padding: 20rpx 16rpx;
-    gap: 16rpx;
+    padding: 0 24rpx;
+    gap: 8rpx;
 }
 
-.category-item {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 14rpx 28rpx;
-    border-radius: 32rpx;
-    background: #F5F7FA;
-    font-size: 26rpx;
-    color: #666;
-    transition: all 0.3s ease;
+.tab {
+    padding: 24rpx 28rpx;
+    font-size: 28rpx;
+    color: #999;
+    position: relative;
+    transition: all 0.3s;
 }
 
-.category-item.active {
-    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
-    color: #FFF;
+.tab.active {
+    color: #1A1A1A;
     font-weight: 600;
-    box-shadow: 0 4rpx 16rpx rgba(255, 36, 66, 0.3);
+}
+
+.tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40rpx;
+    height: 4rpx;
+    background: #1A1A1A;
+    border-radius: 2rpx;
 }
 
 /* ========== 商品列表 ========== */
-.shop-list {
-    padding: 0 24rpx;
+.product-list {
+    padding: 24rpx;
     display: flex;
     flex-direction: column;
-    gap: 20rpx;
+    gap: 16rpx;
 }
 
-/* 平板适配 */
-@media screen and (min-width: 768px) {
-    .shop-list {
-        flex-direction: row;
-        flex-wrap: wrap;
-    }
-
-    .shop-item {
-        width: calc(50% - 10rpx);
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .shop-item {
-        width: calc(33.333% - 14rpx);
-    }
-}
-
-.shop-item {
+.product-card {
     display: flex;
     background: #FFF;
-    border-radius: 20rpx;
+    border-radius: 12rpx;
     overflow: hidden;
-    box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
 }
 
-.shop-image {
-    width: 260rpx;
-    height: 260rpx;
+.card-img {
+    width: 220rpx;
+    height: 220rpx;
     flex-shrink: 0;
+    position: relative;
 }
 
-.shop-info {
+.card-img image {
+    width: 100%;
+    height: 100%;
+}
+
+.card-tag {
+    position: absolute;
+    top: 12rpx;
+    left: 12rpx;
+    width: 36rpx;
+    height: 36rpx;
+    background: #FF3B30;
+    color: #FFF;
+    font-size: 18rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6rpx;
+}
+
+.card-body {
     flex: 1;
     padding: 20rpx;
     display: flex;
     flex-direction: column;
 }
 
-.shop-title-wrap {
-    display: flex;
-    align-items: flex-start;
-    gap: 8rpx;
-}
-
-.shop-tag {
-    font-size: 20rpx;
-    color: #FFF;
-    background: linear-gradient(135deg, #FF6B00 0%, #FF8E00 100%);
-    padding: 4rpx 12rpx;
-    border-radius: 8rpx;
-    flex-shrink: 0;
-}
-
-.shop-title {
+.card-title {
     font-size: 28rpx;
     color: #1A1A1A;
     line-height: 1.5;
@@ -132,132 +107,106 @@ page {
     overflow: hidden;
 }
 
-.shop-desc {
-    font-size: 22rpx;
-    color: #999;
-    margin-top: 8rpx;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    overflow: hidden;
-}
-
-.shop-bottom {
+.card-meta {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
+    gap: 12rpx;
     margin-top: auto;
     padding-top: 12rpx;
 }
 
-.shop-price {
-    display: flex;
-    align-items: baseline;
-    gap: 8rpx;
-}
-
-.price-symbol {
-    font-size: 24rpx;
-    color: #FF2442;
-    font-weight: 600;
-}
-
-.price-value {
-    font-size: 36rpx;
-    color: #FF2442;
+.card-price {
+    font-size: 32rpx;
     font-weight: 700;
+    color: #1A1A1A;
 }
 
-.price-original {
-    font-size: 22rpx;
-    color: #999;
-    text-decoration: line-through;
-}
-
-.shop-sales {
+.card-sales {
     font-size: 22rpx;
     color: #999;
 }
 
-.shop-actions {
+.card-actions {
     display: flex;
     gap: 12rpx;
     margin-top: 16rpx;
 }
 
-.action-btn {
+.btn-detail,
+.btn-add {
     flex: 1;
     height: 56rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 28rpx;
+    border-radius: 6rpx;
     font-size: 24rpx;
     font-weight: 600;
-    border: none;
 }
 
 .btn-detail {
-    background: #F5F7FA;
+    background: #F5F5F5;
     color: #666;
-    border: 1rpx solid #E0E0E0;
 }
 
 .btn-add {
-    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
+    background: #1A1A1A;
     color: #FFF;
-    box-shadow: 0 4rpx 12rpx rgba(255, 36, 66, 0.3);
-}
-
-.action-btn:active {
-    opacity: 0.8;
 }
 
 /* ========== 加载状态 ========== */
-.load-more {
+.loading {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 40rpx;
-    gap: 12rpx;
+    padding: 60rpx;
 }
 
-.loading-spinner {
-    width: 36rpx;
-    height: 36rpx;
+.spinner {
+    width: 40rpx;
+    height: 40rpx;
     border: 4rpx solid #F0F0F0;
-    border-top-color: #FF2442;
+    border-top-color: #1A1A1A;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
 /* ========== 空状态 ========== */
-.empty-state {
+.empty {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 120rpx 40rpx;
+    padding: 160rpx 40rpx;
 }
 
-.empty-emoji {
+.empty-icon {
     font-size: 80rpx;
+    color: #CCC;
     margin-bottom: 24rpx;
 }
 
-.empty-title {
-    font-size: 30rpx;
-    color: #333;
-    font-weight: 600;
-    margin-bottom: 8rpx;
+.empty-text {
+    font-size: 28rpx;
+    color: #999;
 }
 
-.empty-desc {
-    font-size: 26rpx;
-    color: #999;
+/* ========== 平板适配 ========== */
+@media screen and (min-width: 768px) {
+    .product-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .product-card {
+        width: calc(50% - 8rpx);
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .product-card {
+        width: calc(33.333% - 11rpx);
+    }
 }

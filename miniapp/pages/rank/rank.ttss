@@ -1,43 +1,38 @@
 page {
-    background: #F5F7FA;
+    background: #FAFAFA;
 }
 
-.page-rank {
-    min-height: 100vh;
-    padding-bottom: 40rpx;
-}
-
-/* ========== 顶部标题 ========== */
-.rank-header {
-    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
-    padding: 40rpx 30rpx 60rpx;
-    text-align: center;
+/* ========== 顶部 ========== */
+.header {
+    padding: 40rpx 32rpx 24rpx;
+    background: #FFF;
 }
 
 .header-title {
     font-size: 40rpx;
     font-weight: 700;
-    color: #FFF;
+    color: #1A1A1A;
     display: block;
 }
 
-.header-desc {
-    font-size: 24rpx;
-    color: rgba(255, 255, 255, 0.8);
-    margin-top: 8rpx;
+.header-sub {
+    font-size: 26rpx;
+    color: #999;
+    margin-top: 4rpx;
     display: block;
 }
 
-/* ========== Top 3 展示区 ========== */
-.top3-section {
+/* ========== Top 3 ========== */
+.top3 {
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    padding: 0 24rpx 40rpx;
-    margin-top: -30rpx;
+    padding: 40rpx 24rpx 60rpx;
+    background: #FFF;
+    margin-bottom: 16rpx;
 }
 
-.top3-card {
+.top-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,281 +40,232 @@ page {
     position: relative;
 }
 
-.top3-card.top1 {
+.top-item.first {
     order: 2;
-    margin: 0 -20rpx;
+    margin: 0 -16rpx;
     z-index: 10;
 }
 
-.top3-card.top2 {
+.top-item.second {
     order: 1;
 }
 
-.top3-card.top3 {
+.top-item.third {
     order: 3;
 }
 
-.top3-crown {
-    font-size: 48rpx;
-    position: absolute;
-    top: -36rpx;
-    z-index: 20;
-}
-
-.top3-badge {
+.top-crown {
     font-size: 40rpx;
-    margin-bottom: 8rpx;
+    color: #FFD700;
+    position: absolute;
+    top: -32rpx;
 }
 
-.top3-avatar-wrap {
-    background: #FFF;
-    border-radius: 20rpx;
-    padding: 12rpx;
-    box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
+.top-rank {
+    width: 44rpx;
+    height: 44rpx;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #E0E0E0;
+    color: #FFF;
+    border-radius: 50%;
+    font-size: 24rpx;
+    font-weight: 700;
+    margin-bottom: 12rpx;
 }
 
-.top3-image {
+.top-item.first .top-rank {
+    background: #1A1A1A;
+    width: 48rpx;
+    height: 48rpx;
+}
+
+.top-img {
     width: 140rpx;
     height: 140rpx;
-    border-radius: 12rpx;
+    border-radius: 16rpx;
+    overflow: hidden;
+    background: #F5F5F5;
 }
 
-.top3-card.top1 .top3-avatar-wrap {
-    padding: 16rpx;
-    border-radius: 24rpx;
-    box-shadow: 0 12rpx 32rpx rgba(255, 36, 66, 0.2);
-}
-
-.top3-card.top1 .top3-image {
+.top-item.first .top-img {
     width: 180rpx;
     height: 180rpx;
-    border-radius: 16rpx;
+    border-radius: 20rpx;
 }
 
-.top3-title {
+.top-img image {
+    width: 100%;
+    height: 100%;
+}
+
+.top-title {
     font-size: 22rpx;
-    color: #333;
+    color: #1A1A1A;
     margin-top: 12rpx;
-    text-align: center;
+    max-width: 160rpx;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 180rpx;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-.top3-count-wrap {
-    display: flex;
-    align-items: center;
-    gap: 4rpx;
-    margin-top: 8rpx;
-    background: #FFF0F0;
-    padding: 6rpx 16rpx;
-    border-radius: 20rpx;
-}
-
-.heart-icon {
+.top-count {
     font-size: 20rpx;
+    color: #999;
+    margin-top: 4rpx;
 }
 
-.top3-count {
-    font-size: 22rpx;
-    color: #FF2442;
-    font-weight: 600;
-}
-
-/* ========== 排行列表 ========== */
-.rank-list {
+/* ========== 榜单列表 ========== */
+.list-section {
     background: #FFF;
-    border-radius: 24rpx 24rpx 0 0;
-    margin: 0 16rpx;
-    padding: 0 24rpx;
-    min-height: 50vh;
+    padding: 0 32rpx;
 }
 
-/* 平板适配 */
-@media screen and (min-width: 768px) {
-    .rank-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 16rpx;
-        padding: 20rpx;
-    }
-
-    .rank-list-header {
-        width: 100%;
-    }
-
-    .rank-item {
-        width: calc(50% - 8rpx);
-        background: #FFF;
-        border-radius: 16rpx;
-        padding: 20rpx;
-        border-bottom: none;
-        box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.06);
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .rank-item {
-        width: calc(33.333% - 11rpx);
-    }
-}
-
-.rank-list-header {
-    padding: 30rpx 0;
-    border-bottom: 2rpx solid #F0F0F0;
+.list-header {
+    padding: 32rpx 0;
+    border-bottom: 1rpx solid #F0F0F0;
 }
 
 .list-title {
-    font-size: 32rpx;
-    font-weight: 700;
+    font-size: 30rpx;
+    font-weight: 600;
     color: #1A1A1A;
 }
 
-.rank-item {
+.list-item {
     display: flex;
     align-items: center;
     padding: 24rpx 0;
     border-bottom: 1rpx solid #F5F5F5;
 }
 
-.rank-item:last-child {
+.list-item:last-child {
     border-bottom: none;
 }
 
-.rank-num-wrap {
+.item-rank {
     width: 48rpx;
-    margin-right: 16rpx;
-}
-
-.rank-num {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48rpx;
-    height: 48rpx;
     font-size: 28rpx;
     font-weight: 700;
-    color: #999;
-    background: #F5F7FA;
+    color: #CCC;
+    text-align: center;
+}
+
+.item-rank.top {
+    color: #1A1A1A;
+}
+
+.item-img {
+    width: 100rpx;
+    height: 100rpx;
     border-radius: 12rpx;
+    margin: 0 20rpx;
+    background: #F5F5F5;
 }
 
-.rank-num.rank-top {
-    color: #FFF;
-    background: linear-gradient(135deg, #FF2442 0%, #FF6B81 100%);
-}
-
-.rank-image {
-    width: 120rpx;
-    height: 120rpx;
-    border-radius: 16rpx;
-    margin-right: 20rpx;
-    flex-shrink: 0;
-}
-
-.rank-info {
+.item-info {
     flex: 1;
     min-width: 0;
 }
 
-.rank-title {
+.item-title {
     font-size: 28rpx;
     color: #1A1A1A;
-    font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
 }
 
-.rank-meta {
-    display: flex;
-    align-items: center;
-    gap: 16rpx;
-    margin-top: 8rpx;
-}
-
-.rank-price {
-    font-size: 28rpx;
-    color: #FF2442;
-    font-weight: 700;
-}
-
-.rank-count {
-    font-size: 22rpx;
+.item-price {
+    font-size: 26rpx;
     color: #999;
+    margin-top: 4rpx;
+    display: block;
 }
 
-.want-btn {
-    width: 72rpx;
-    height: 56rpx;
+.item-want {
+    width: 64rpx;
+    height: 64rpx;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #FFF0F0;
-    border: 2rpx solid #FF2442;
-    border-radius: 28rpx;
-    padding: 0;
-    margin: 0;
-    flex-shrink: 0;
-}
-
-.want-btn.wanted {
-    background: #FF2442;
-    border-color: transparent;
-}
-
-.want-icon {
+    background: #F5F5F5;
+    border-radius: 50%;
     font-size: 28rpx;
+    color: #CCC;
+}
+
+.item-want.active {
+    background: #FFF0F0;
+    color: #FF3B30;
 }
 
 /* ========== 加载状态 ========== */
-.load-more {
+.loading {
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 40rpx;
-    gap: 12rpx;
+    padding: 60rpx;
 }
 
-.loading-spinner {
-    width: 36rpx;
-    height: 36rpx;
+.spinner {
+    width: 40rpx;
+    height: 40rpx;
     border: 4rpx solid #F0F0F0;
-    border-top-color: #FF2442;
+    border-top-color: #1A1A1A;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
 /* ========== 空状态 ========== */
-.empty-state {
+.empty {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 120rpx 40rpx;
+    padding: 160rpx 40rpx;
 }
 
-.empty-emoji {
+.empty-icon {
     font-size: 80rpx;
+    color: #CCC;
     margin-bottom: 24rpx;
 }
 
-.empty-title {
-    font-size: 30rpx;
-    color: #333;
-    font-weight: 600;
-    margin-bottom: 8rpx;
+.empty-text {
+    font-size: 28rpx;
+    color: #999;
 }
 
-.empty-desc {
-    font-size: 26rpx;
-    color: #999;
+/* ========== 平板适配 ========== */
+@media screen and (min-width: 768px) {
+    .list-section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16rpx;
+        padding: 24rpx;
+    }
+
+    .list-header {
+        width: 100%;
+    }
+
+    .list-item {
+        width: calc(50% - 8rpx);
+        background: #FFF;
+        border-radius: 16rpx;
+        padding: 20rpx;
+        border-bottom: none;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .list-item {
+        width: calc(33.333% - 11rpx);
+    }
 }

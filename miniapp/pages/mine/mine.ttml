@@ -1,113 +1,90 @@
 <view class="page-mine">
-    <!-- 用户信息区 -->
-    <view class="user-section">
-        <view class="user-bg"></view>
-        <view class="user-content">
-            <view class="user-info" tt:if="{{userInfo}}">
-                <view class="avatar-wrap">
-                    <image class="user-avatar" src="{{userInfo.avatar || '/assets/default-avatar.png'}}" />
-                    <view class="vip-badge" tt:if="{{userInfo.role === 'creator'}}">创作者</view>
-                </view>
-                <view class="user-detail">
-                    <text class="user-name">{{userInfo.nickname || '用户'}}</text>
-                    <text class="user-id">ID: {{userInfo.id}}</text>
-                </view>
-                <view class="settings-btn" bindtap="goSettings">
-                    <text>⚙️</text>
+    <!-- 用户区域 -->
+    <view class="user-area">
+        <view class="user-info" tt:if="{{userInfo}}">
+            <view class="avatar-wrap">
+                <image class="avatar" src="{{userInfo.avatar || '/assets/default-avatar.png'}}" />
+            </view>
+            <view class="user-text">
+                <text class="username">{{userInfo.nickname || '用户'}}</text>
+                <text class="user-role">{{userInfo.role === 'creator' ? '创作者' : '粉丝'}}</text>
+            </view>
+        </view>
+        <view class="user-info" tt:else>
+            <view class="avatar-wrap">
+                <image class="avatar" src="/assets/default-avatar.png" />
+            </view>
+            <view class="user-text">
+                <view class="login-btn" bindtap="doLogin">
+                    <text>登录</text>
                 </view>
             </view>
-            <view class="user-info" tt:else>
-                <view class="avatar-wrap">
-                    <image class="user-avatar" src="/assets/default-avatar.png" />
-                </view>
-                <view class="user-detail">
-                    <button class="login-btn" bindtap="doLogin">点击登录</button>
-                    <text class="login-hint">登录后可参与投票</text>
-                </view>
-            </view>
+        </view>
 
-            <!-- 数据统计 -->
-            <view class="user-stats" tt:if="{{userInfo}}">
-                <view class="stat-item">
-                    <text class="stat-num">{{stats.wantCount || 0}}</text>
-                    <text class="stat-label">我的投票</text>
-                </view>
-                <view class="stat-divider"></view>
-                <view class="stat-item" tt:if="{{userInfo.role === 'creator'}}">
-                    <text class="stat-num">{{stats.productCount || 0}}</text>
-                    <text class="stat-label">我的商品</text>
-                </view>
-                <view class="stat-item" tt:else>
-                    <text class="stat-num">0</text>
-                    <text class="stat-label">关注</text>
-                </view>
-                <view class="stat-divider"></view>
-                <view class="stat-item">
-                    <text class="stat-num">{{stats.fansCount || 0}}</text>
-                    <text class="stat-label">{{userInfo.role === 'creator' ? '粉丝' : '获赞'}}</text>
-                </view>
+        <!-- 数据统计 -->
+        <view class="stats" tt:if="{{userInfo}}">
+            <view class="stat">
+                <text class="stat-num">{{stats.wantCount || 0}}</text>
+                <text class="stat-label">投票</text>
+            </view>
+            <view class="stat-divider"></view>
+            <view class="stat">
+                <text class="stat-num">{{stats.productCount || 0}}</text>
+                <text class="stat-label">商品</text>
+            </view>
+            <view class="stat-divider"></view>
+            <view class="stat">
+                <text class="stat-num">{{stats.fansCount || 0}}</text>
+                <text class="stat-label">{{userInfo.role === 'creator' ? '粉丝' : '获赞'}}</text>
             </view>
         </view>
     </view>
 
-    <!-- 创作者面板入口 -->
-    <view class="creator-panel" tt:if="{{userInfo && userInfo.role === 'creator'}}">
+    <!-- 创作者面板 -->
+    <view class="panel" tt:if="{{userInfo && userInfo.role === 'creator'}}">
         <view class="panel-header">
             <text class="panel-title">创作者中心</text>
-            <text class="panel-more" bindtap="goCreatorDashboard">查看全部 ›</text>
         </view>
         <view class="panel-grid">
             <view class="panel-item" bindtap="goCreatorDashboard">
-                <view class="panel-icon-wrap icon-bg-1">
-                    <text class="panel-icon">📊</text>
-                </view>
-                <text class="panel-text">数据概览</text>
+                <text class="panel-icon">📊</text>
+                <text class="panel-text">数据</text>
             </view>
             <view class="panel-item" bindtap="goCreatorProducts">
-                <view class="panel-icon-wrap icon-bg-2">
-                    <text class="panel-icon">📦</text>
-                </view>
-                <text class="panel-text">商品管理</text>
+                <text class="panel-icon">📦</text>
+                <text class="panel-text">商品</text>
             </view>
             <view class="panel-item" bindtap="goCreatorStats">
-                <view class="panel-icon-wrap icon-bg-3">
-                    <text class="panel-icon">👥</text>
-                </view>
-                <text class="panel-text">粉丝投票</text>
+                <text class="panel-icon">👥</text>
+                <text class="panel-text">粉丝</text>
             </view>
             <view class="panel-item" bindtap="goShop">
-                <view class="panel-icon-wrap icon-bg-4">
-                    <text class="panel-icon">🛒</text>
-                </view>
-                <text class="panel-text">添加商品</text>
+                <text class="panel-icon">＋</text>
+                <text class="panel-text">添加</text>
             </view>
         </view>
     </view>
 
-    <!-- 成为创作者 -->
-    <view class="become-card" tt:if="{{userInfo && userInfo.role !== 'creator'}}">
-        <view class="become-content">
-            <view class="become-left">
-                <text class="become-icon">🎯</text>
-                <view class="become-text">
-                    <text class="become-title">开通创作者</text>
-                    <text class="become-desc">管理商品、查看投票数据</text>
-                </view>
-            </view>
-            <button class="become-btn" bindtap="becomeCreator">立即开通</button>
+    <!-- 开通创作者 -->
+    <view class="upgrade-card" tt:if="{{userInfo && userInfo.role !== 'creator'}}">
+        <view class="upgrade-content">
+            <text class="upgrade-title">开通创作者</text>
+            <text class="upgrade-desc">管理商品，查看投票数据</text>
+        </view>
+        <view class="upgrade-btn" bindtap="becomeCreator">
+            <text>开通</text>
         </view>
     </view>
 
     <!-- 我的投票 -->
-    <view class="section-card" tt:if="{{myWants.length}}">
+    <view class="section" tt:if="{{myWants.length}}">
         <view class="section-header">
             <text class="section-title">我的投票</text>
-            <text class="section-more" bindtap="goMyWants">查看全部 ›</text>
         </view>
         <scroll-view class="wants-scroll" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
             <view class="wants-list">
                 <view class="want-item" tt:for="{{myWants}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
-                    <image class="want-image" src="{{item.image}}" mode="aspectFill" />
+                    <image class="want-img" src="{{item.image}}" mode="aspectFill" />
                     <text class="want-title">{{item.title}}</text>
                     <text class="want-price">¥{{item.priceText}}</text>
                 </view>
@@ -115,59 +92,37 @@
         </scroll-view>
     </view>
 
-    <!-- 功能菜单 -->
-    <view class="menu-section">
-        <view class="menu-card">
-            <view class="menu-item" bindtap="goShop">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">🛒</text>
-                </view>
-                <text class="menu-text">抖音商城</text>
-                <text class="menu-arrow">›</text>
-            </view>
-            <view class="menu-item" bindtap="goSearch">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">🔍</text>
-                </view>
-                <text class="menu-text">搜索商品</text>
-                <text class="menu-arrow">›</text>
-            </view>
-            <view class="menu-item" bindtap="goRank">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">🏆</text>
-                </view>
-                <text class="menu-text">排行榜</text>
-                <text class="menu-arrow">›</text>
-            </view>
+    <!-- 菜单 -->
+    <view class="menu">
+        <view class="menu-item" bindtap="goShop">
+            <text class="menu-icon">🛒</text>
+            <text class="menu-text">抖音商城</text>
+            <text class="menu-arrow">›</text>
         </view>
-
-        <view class="menu-card">
-            <view class="menu-item" open-type="share">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">📤</text>
-                </view>
-                <text class="menu-text">分享小程序</text>
-                <text class="menu-arrow">›</text>
-            </view>
-            <view class="menu-item" bindtap="showAbout">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">ℹ️</text>
-                </view>
-                <text class="menu-text">关于我们</text>
-                <text class="menu-arrow">›</text>
-            </view>
-            <view class="menu-item" bindtap="contactService">
-                <view class="menu-icon-wrap">
-                    <text class="menu-icon">💬</text>
-                </view>
-                <text class="menu-text">联系客服</text>
-                <text class="menu-arrow">›</text>
-            </view>
+        <view class="menu-item" bindtap="goSearch">
+            <text class="menu-icon">⌕</text>
+            <text class="menu-text">搜索商品</text>
+            <text class="menu-arrow">›</text>
+        </view>
+        <view class="menu-item" bindtap="goRank">
+            <text class="menu-icon">♛</text>
+            <text class="menu-text">排行榜</text>
+            <text class="menu-arrow">›</text>
+        </view>
+        <view class="menu-item" open-type="share">
+            <text class="menu-icon">↗</text>
+            <text class="menu-text">分享</text>
+            <text class="menu-arrow">›</text>
+        </view>
+        <view class="menu-item" bindtap="showAbout">
+            <text class="menu-icon">◎</text>
+            <text class="menu-text">关于</text>
+            <text class="menu-arrow">›</text>
         </view>
     </view>
 
-    <!-- 版本信息 -->
-    <view class="version-info">
+    <!-- 版本 -->
+    <view class="version">
         <text>FanPick v1.0.0</text>
     </view>
 </view>

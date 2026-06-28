@@ -1,65 +1,55 @@
 <view class="page-shop">
-    <!-- 顶部提示 -->
-    <view class="shop-notice">
-        <text class="notice-icon">💡</text>
-        <text class="notice-text">关联抖音商城商品，让粉丝直接投票选品</text>
+    <!-- 提示 -->
+    <view class="notice">
+        <text>关联抖音商城商品，让粉丝投票选品</text>
     </view>
 
-    <!-- 分类标签 -->
-    <scroll-view class="category-scroll" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
-        <view class="category-list">
-            <view class="category-item {{currentCategory === item.id ? 'active' : ''}}"
+    <!-- 分类 -->
+    <scroll-view class="tabs" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
+        <view class="tab-list">
+            <view class="tab {{currentCategory === item.id ? 'active' : ''}}"
                   tt:for="{{categories}}"
                   tt:key="id"
                   bindtap="switchCategory"
                   data-category="{{item.id}}">
-                <text>{{item.icon}} {{item.name}}</text>
+                <text>{{item.name}}</text>
             </view>
         </view>
     </scroll-view>
 
     <!-- 商品列表 -->
-    <view class="shop-list">
-        <view class="shop-item" tt:for="{{shopProducts}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
-            <image class="shop-image" src="{{item.image}}" mode="aspectFill" />
-            <view class="shop-info">
-                <view class="shop-title-wrap">
-                    <text class="shop-tag" tt:if="{{item.is_hot}}">爆款</text>
-                    <text class="shop-title">{{item.title}}</text>
+    <view class="product-list">
+        <view class="product-card" tt:for="{{shopProducts}}" tt:key="id">
+            <view class="card-img" bindtap="goDetail" data-id="{{item.id}}">
+                <image src="{{item.image}}" mode="aspectFill" />
+                <view class="card-tag" tt:if="{{item.is_hot}}">热</view>
+            </view>
+            <view class="card-body">
+                <text class="card-title" bindtap="goDetail" data-id="{{item.id}}">{{item.title}}</text>
+                <view class="card-meta">
+                    <text class="card-price">¥{{item.priceText}}</text>
+                    <text class="card-sales">{{item.salesText}}人付款</text>
                 </view>
-                <text class="shop-desc">{{item.desc}}</text>
-                <view class="shop-bottom">
-                    <view class="shop-price">
-                        <text class="price-symbol">¥</text>
-                        <text class="price-value">{{item.priceText}}</text>
-                        <text class="price-original" tt:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+                <view class="card-actions">
+                    <view class="btn-detail" catchtap="goDouyinShop" data-url="{{item.detail_url}}">
+                        <text>详情</text>
                     </view>
-                    <view class="shop-sales">
-                        <text>{{item.salesText}}人付款</text>
+                    <view class="btn-add" catchtap="addToVote" data-id="{{item.id}}" data-item="{{item}}">
+                        <text>＋ 选品</text>
                     </view>
-                </view>
-                <view class="shop-actions">
-                    <button class="action-btn btn-detail" catchtap="goDouyinShop" data-url="{{item.detail_url}}">
-                        查看详情
-                    </button>
-                    <button class="action-btn btn-add" catchtap="addToVote" data-id="{{item.id}}" data-item="{{item}}">
-                        + 加入选品
-                    </button>
                 </view>
             </view>
         </view>
     </view>
 
-    <!-- 加载更多 -->
-    <view class="load-more" tt:if="{{loading}}">
-        <view class="loading-spinner"></view>
-        <text>加载中...</text>
+    <!-- 加载状态 -->
+    <view class="loading" tt:if="{{loading}}">
+        <view class="spinner"></view>
     </view>
 
     <!-- 空状态 -->
-    <view class="empty-state" tt:if="{{!loading && !shopProducts.length}}">
-        <text class="empty-emoji">🛒</text>
-        <text class="empty-title">暂无商品</text>
-        <text class="empty-desc">请稍后再试</text>
+    <view class="empty" tt:if="{{!loading && !shopProducts.length}}">
+        <text class="empty-icon">◇</text>
+        <text class="empty-text">暂无商品</text>
     </view>
 </view>
