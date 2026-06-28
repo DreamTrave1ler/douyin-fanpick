@@ -1,0 +1,43 @@
+<view class="page-rank">
+    <!-- Top 3 展示 -->
+    <view class="top3-section" tt:if="{{top3.length >= 3}}">
+        <view class="top3-card top2" bindtap="goDetail" data-id="{{top3[1].id}}">
+            <view class="top3-rank">2</view>
+            <image class="top3-image" src="{{top3[1].image}}" mode="aspectFill" />
+            <text class="top3-title">{{top3[1].title}}</text>
+            <text class="top3-count">❤️ {{top3[1].want_count}}</text>
+        </view>
+        <view class="top3-card top1" bindtap="goDetail" data-id="{{top3[0].id}}">
+            <view class="top3-crown">👑</view>
+            <view class="top3-rank">1</view>
+            <image class="top3-image" src="{{top3[0].image}}" mode="aspectFill" />
+            <text class="top3-title">{{top3[0].title}}</text>
+            <text class="top3-count">❤️ {{top3[0].want_count}}</text>
+        </view>
+        <view class="top3-card top3" bindtap="goDetail" data-id="{{top3[2].id}}">
+            <view class="top3-rank">3</view>
+            <image class="top3-image" src="{{top3[2].image}}" mode="aspectFill" />
+            <text class="top3-title">{{top3[2].title}}</text>
+            <text class="top3-count">❤️ {{top3[2].want_count}}</text>
+        </view>
+    </view>
+
+    <!-- 完整排行列表 -->
+    <view class="rank-list">
+        <view class="rank-item" tt:for="{{rankList}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
+            <view class="rank-num {{item.rank <= 3 ? 'rank-top' : ''}}">{{item.rank}}</view>
+            <image class="rank-image" src="{{item.image}}" mode="aspectFill" />
+            <view class="rank-info">
+                <text class="rank-title">{{item.title}}</text>
+                <text class="rank-count">{{item.want_count}} 人想要</text>
+            </view>
+            <button class="want-btn {{item.is_wanted ? 'wanted' : ''}}" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
+                {{item.is_wanted ? '❤️' : '🤍'}}
+            </button>
+        </view>
+    </view>
+
+    <view class="loading" tt:if="{{loading}}">
+        <text>加载中...</text>
+    </view>
+</view>

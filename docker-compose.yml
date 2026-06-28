@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: fanpick-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: fanpick123
+      MYSQL_DATABASE: fanpick
+      MYSQL_CHARSET: utf8mb4
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  server:
+    build: ./server
+    container_name: fanpick-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: fanpick123
+      DB_NAME: fanpick
+      TT_APP_ID: tt4186373bdfe20c5401
+      TT_APP_SECRET: 请填入你的app_secret
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:

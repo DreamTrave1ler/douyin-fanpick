@@ -1,0 +1,77 @@
+<view class="page-mine">
+    <!-- 用户信息区 -->
+    <view class="user-section">
+        <view class="user-info" tt:if="{{userInfo}}">
+            <image class="user-avatar" src="{{userInfo.avatar || '/assets/default-avatar.png'}}" />
+            <view class="user-detail">
+                <text class="user-name">{{userInfo.nickname || '用户'}}</text>
+                <text class="user-role">{{userInfo.role === 'creator' ? '创作者' : '粉丝'}}</text>
+            </view>
+        </view>
+        <view class="user-info" tt:else>
+            <image class="user-avatar" src="/assets/default-avatar.png" />
+            <view class="user-detail">
+                <button class="login-btn" bindtap="doLogin">点击登录</button>
+            </view>
+        </view>
+    </view>
+
+    <!-- 创作者面板入口 -->
+    <view class="card creator-entry" tt:if="{{userInfo && userInfo.role === 'creator'}}">
+        <view class="entry-title">创作者面板</view>
+        <view class="entry-items">
+            <view class="entry-item" bindtap="goCreatorDashboard">
+                <text class="entry-icon">📊</text>
+                <text class="entry-text">数据概览</text>
+            </view>
+            <view class="entry-item" bindtap="goCreatorProducts">
+                <text class="entry-icon">📦</text>
+                <text class="entry-text">商品管理</text>
+            </view>
+            <view class="entry-item" bindtap="goCreatorStats">
+                <text class="entry-icon">👥</text>
+                <text class="entry-text">粉丝投票</text>
+            </view>
+        </view>
+    </view>
+
+    <!-- 成为创作者 -->
+    <view class="card" tt:if="{{userInfo && userInfo.role !== 'creator'}}">
+        <view class="become-creator">
+            <text class="become-title">你是创作者？</text>
+            <text class="become-desc">开通创作者可以管理产品、查看投票数据</text>
+            <button class="btn-primary btn-small" bindtap="becomeCreator">开通创作者</button>
+        </view>
+    </view>
+
+    <!-- 我的投票 -->
+    <view class="card">
+        <view class="section-title">我的投票</view>
+        <view class="my-wants" tt:if="{{myWants.length}}">
+            <view class="want-item" tt:for="{{myWants}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
+                <image class="want-image" src="{{item.image}}" mode="aspectFill" />
+                <view class="want-info">
+                    <text class="want-title">{{item.title}}</text>
+                    <text class="want-time">{{item.want_time}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="empty" tt:else>
+            <text class="empty-text">还没有投过票</text>
+        </view>
+    </view>
+
+    <!-- 菜单列表 -->
+    <view class="card menu-list">
+        <view class="menu-item" bindtap="shareApp">
+            <text class="menu-icon">📤</text>
+            <text class="menu-text">分享小程序</text>
+            <text class="menu-arrow">›</text>
+        </view>
+        <view class="menu-item" bindtap="showAbout">
+            <text class="menu-icon">ℹ️</text>
+            <text class="menu-text">关于我们</text>
+            <text class="menu-arrow">›</text>
+        </view>
+    </view>
+</view>

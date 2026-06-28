@@ -1,0 +1,126 @@
+.page-detail {
+    padding-bottom: 140rpx;
+}
+
+.detail-image-wrap {
+    width: 100%;
+    height: 600rpx;
+}
+
+.detail-image {
+    width: 100%;
+    height: 100%;
+}
+
+.detail-info {
+    margin: 20rpx;
+}
+
+.detail-title {
+    font-size: 32rpx;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #333;
+}
+
+.detail-price-row {
+    display: flex;
+    align-items: baseline;
+    margin-top: 16rpx;
+}
+
+.detail-price {
+    font-size: 44rpx;
+    color: #FF2442;
+    font-weight: 700;
+}
+
+.detail-wants {
+    font-size: 24rpx;
+    color: #999;
+    margin-left: 20rpx;
+}
+
+.detail-creator {
+    font-size: 24rpx;
+    color: #666;
+    margin-top: 12rpx;
+}
+
+/* 投票区域 */
+.vote-section {
+    margin: 20rpx;
+    text-align: center;
+}
+
+.vote-title {
+    font-size: 32rpx;
+    font-weight: 600;
+    color: #333;
+}
+
+.vote-desc {
+    font-size: 24rpx;
+    color: #999;
+    margin-top: 8rpx;
+}
+
+.vote-btn {
+    margin-top: 30rpx;
+    background: linear-gradient(135deg, #FF2442, #FF6B81);
+    color: #FFF;
+    border: none;
+    border-radius: 44rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    font-size: 30rpx;
+    font-weight: 500;
+}
+
+.vote-btn.voted {
+    background: #FFF;
+    color: #FF2442;
+    border: 2rpx solid #FF2442;
+}
+
+.vote-count {
+    font-size: 24rpx;
+    color: #999;
+    margin-top: 16rpx;
+}
+
+/* 底部操作栏 */
+.action-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 16rpx 20rpx;
+    background: #FFF;
+    box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.06);
+    padding-bottom: calc(16rpx + env(safe-area-inset-bottom));
+}
+
+.action-share {
+    flex: 1;
+    height: 80rpx;
+    line-height: 80rpx;
+    background: #FFF;
+    color: #FF2442;
+    border: 2rpx solid #FF2442;
+    border-radius: 40rpx;
+    font-size: 28rpx;
+    margin-right: 16rpx;
+}
+
+.action-shop {
+    flex: 1;
+    height: 80rpx;
+    line-height: 80rpx;
+    background: #FF2442;
+    color: #FFF;
+    border: none;
+    border-radius: 40rpx;
+    font-size: 28rpx;
+}

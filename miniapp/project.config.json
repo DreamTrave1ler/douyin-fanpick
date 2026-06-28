@@ -1,0 +1,15 @@
+{
+  "appid": "tt4186373bdfe20c5401",
+  "projectname": "fanpick",
+  "description": "FanPick - 粉丝选品小程序",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "autoAudits": false,
+    "urlCheck": false
+  },
+  "compileType": "miniprogram",
+  "condition": {}
+}

@@ -1,0 +1,37 @@
+<view class="page-detail" tt:if="{{product}}">
+    <!-- 产品图片 -->
+    <view class="detail-image-wrap">
+        <image class="detail-image" src="{{product.image}}" mode="aspectFill" />
+    </view>
+
+    <!-- 产品信息 -->
+    <view class="detail-info card">
+        <text class="detail-title">{{product.title}}</text>
+        <view class="detail-price-row">
+            <text class="detail-price">¥{{priceText}}</text>
+            <text class="detail-wants">{{product.want_count}} 人想要</text>
+        </view>
+        <text class="detail-creator">推荐者：{{product.creator_name}}</text>
+    </view>
+
+    <!-- 投票区域 -->
+    <view class="vote-section card">
+        <view class="vote-title">你想要这个产品吗？</view>
+        <view class="vote-desc">投票后创作者可以看到你的选择</view>
+        <button class="vote-btn {{product.is_wanted ? 'voted' : ''}}" bindtap="toggleWant">
+            {{product.is_wanted ? '❤️ 已想要，点击取消' : '🤍 我想要这个'}}
+        </button>
+        <view class="vote-count">{{product.want_count}} 人已投票</view>
+    </view>
+
+    <!-- 操作栏 -->
+    <view class="action-bar">
+        <button class="action-share" open-type="share">分享给朋友</button>
+        <button class="action-shop" bindtap="goShop">去抖音商城看看</button>
+    </view>
+</view>
+
+<!-- 加载中 -->
+<view class="loading" tt:if="{{loading}}">
+    <text>加载中...</text>
+</view>

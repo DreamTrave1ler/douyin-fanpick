@@ -1,0 +1,19 @@
+{
+  "name": "douyin-fanpick",
+  "version": "1.0.0",
+  "description": "> 帮助创作者了解粉丝购物偏好，精准选品上架橱窗",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "sharp": "^0.35.2"
+  }
+}

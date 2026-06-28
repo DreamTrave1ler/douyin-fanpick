@@ -1,0 +1,21 @@
+{
+  "name": "fanpick-server",
+  "version": "1.0.0",
+  "description": "FanPick 抖音小程序后端服务",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "db:init": "node -e \"require('./utils/initdb').initDatabase()\""
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "sql.js": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
