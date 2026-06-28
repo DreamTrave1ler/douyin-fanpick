@@ -2,12 +2,13 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-# 复制整个项目
-COPY . .
+# 复制服务端代码
+COPY server/ ./server/
 
 # 安装依赖
+WORKDIR /app/server
 RUN npm install --production
 
 EXPOSE 3000
 
-CMD ["node", "server/app.js"]
+CMD ["node", "app.js"]
