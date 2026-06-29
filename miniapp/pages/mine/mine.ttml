@@ -132,6 +132,6 @@
 
     <!-- 版本 -->
     <view class="version">
-        <text>FanPick v1.0.0</text>
+        <text>粉丝优橱窗 v1.0.0</text>
     </view>
 </view>

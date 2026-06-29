@@ -1,7 +1,7 @@
 {
   "appid": "tt4186373bdfe20c5401",
   "projectname": "fanpick",
-  "description": "FanPick - 粉丝选品小程序",
+  "description": "粉丝优橱窗 - 粉丝选品小程序",
   "setting": {
     "es6": true,
     "postcss": true,

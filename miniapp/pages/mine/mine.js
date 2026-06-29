@@ -153,15 +153,15 @@ Page({
 
     onShareAppMessage() {
         return {
-            title: 'FanPick - 帮你选出粉丝最爱的好物',
+            title: '粉丝优橱窗 - 帮你选出粉丝最爱的好物',
             path: '/pages/index/index'
         };
     },
 
     showAbout() {
         tt.showModal({
-            title: '关于 FanPick',
-            content: 'FanPick 是一款帮助创作者了解粉丝购物偏好的工具。粉丝可以浏览产品并标记"想要"，创作者查看投票数据精准选品。',
+            title: '关于粉丝优橱窗',
+            content: '粉丝优橱窗是一款帮助创作者了解粉丝购物偏好的工具。粉丝可以浏览产品并标记"想要"，创作者查看投票数据精准选品。',
             showCancel: false
         });
     }
