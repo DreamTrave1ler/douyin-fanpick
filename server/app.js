@@ -13,6 +13,15 @@ app.use(cors());
 app.use(express.json());
 app.use(response);
 
+// 静态资源缓存
+app.use((req, res, next) => {
+    // GET 请求缓存 30 秒
+    if (req.method === 'GET') {
+        res.set('Cache-Control', 'public, max-age=30');
+    }
+    next();
+});
+
 // 路由
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', optionalAuth, require('./routes/product'));

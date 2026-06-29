@@ -8,11 +8,14 @@ Page({
         loading: false,
         noMore: false,
         currentCategory: 'all',
-        showBackTop: false
+        showBackTop: false,
+        // 骨架屏
+        showSkeleton: true
     },
 
     onLoad() {
-        this.loadProducts();
+        // 尝试使用预加载缓存
+        this.loadProducts(true);
     },
 
     onShow() {
@@ -23,6 +26,7 @@ Page({
     },
 
     onPullDownRefresh() {
+        app.clearCache();
         this.refreshProducts().then(() => tt.stopPullDownRefresh());
     },
 
@@ -32,14 +36,16 @@ Page({
         }
     },
 
+    // 页面滚动优化 - 节流
     onPageScroll(e) {
-        this.setData({
-            showBackTop: e.scrollTop > 500
-        });
+        const showBackTop = e.scrollTop > 500;
+        if (showBackTop !== this.data.showBackTop) {
+            this.setData({ showBackTop });
+        }
     },
 
     // 加载产品列表
-    loadProducts() {
+    loadProducts(useCache = false) {
         if (this.data.loading || this.data.noMore) return;
         this.setData({ loading: true });
 
@@ -50,20 +56,22 @@ Page({
                 size: 10,
                 category: this.data.currentCategory
             }
-        }).then(data => {
+        }, useCache).then(data => {
             const list = (data.list || []).map(p => ({
                 ...p,
                 priceText: (p.price / 100).toFixed(2)
             }));
 
+            // 批量 setData，减少渲染次数
             this.setData({
                 products: this.data.products.concat(list),
                 page: this.data.page + 1,
                 noMore: list.length < 10,
-                loading: false
+                loading: false,
+                showSkeleton: false
             });
         }).catch(err => {
-            this.setData({ loading: false });
+            this.setData({ loading: false, showSkeleton: false });
             tt.showToast({ title: String(err), icon: 'none' });
         });
     },
@@ -113,7 +121,7 @@ Page({
         tt.pageScrollTo({ scrollTop: 0, duration: 300 });
     },
 
-    // 切换"想要"
+    // 切换"想要" - 防抖处理
     toggleWant(e) {
         const { id, index } = e.currentTarget.dataset;
         const product = this.data.products[index];
@@ -130,17 +138,20 @@ Page({
         // 震动反馈
         tt.vibrateShort({ type: 'medium' });
 
-        app.request({
-            url: '/wants',
-            method: isWanted ? 'DELETE' : 'POST',
-            data: { product_id: id }
-        }).catch(err => {
-            // 回滚 UI
-            this.setData({
-                [key]: isWanted,
-                [countKey]: product.want_count
+        // 防抖请求
+        app.debounce(`want_${id}`, () => {
+            app.request({
+                url: '/wants',
+                method: isWanted ? 'DELETE' : 'POST',
+                data: { product_id: id }
+            }).catch(err => {
+                // 回滚 UI
+                this.setData({
+                    [key]: isWanted,
+                    [countKey]: product.want_count
+                });
+                tt.showToast({ title: String(err), icon: 'none' });
             });
-            tt.showToast({ title: String(err), icon: 'none' });
-        });
+        }, 500);
     }
 });

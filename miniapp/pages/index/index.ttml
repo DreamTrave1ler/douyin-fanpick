@@ -39,8 +39,23 @@
         </view>
     </scroll-view>
 
+    <!-- 骨架屏 -->
+    <view class="skeleton-list" tt:if="{{showSkeleton}}">
+        <view class="skeleton-card" tt:for="{{[1,2,3,4]}}" tt:key="*this">
+            <view class="skeleton-img"></view>
+            <view class="skeleton-body">
+                <view class="skeleton-title"></view>
+                <view class="skeleton-title short"></view>
+                <view class="skeleton-footer">
+                    <view class="skeleton-price"></view>
+                    <view class="skeleton-btn"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+
     <!-- 产品列表 -->
-    <view class="product-list">
+    <view class="product-list" tt:if="{{!showSkeleton}}">
         <view class="product-card" tt:for="{{products}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
             <view class="card-img">
                 <image src="{{item.image}}" mode="aspectFill" lazy-load="{{true}}" />
@@ -65,7 +80,7 @@
     </view>
 
     <!-- 空状态 -->
-    <view class="empty" tt:if="{{!loading && !products.length}}">
+    <view class="empty" tt:if="{{!loading && !products.length && !showSkeleton}}">
         <text class="empty-icon">📦</text>
         <text class="empty-text">暂无商品</text>
         <view class="empty-btn" bindtap="goSearch">
@@ -74,7 +89,7 @@
     </view>
 
     <!-- 加载状态 -->
-    <view class="loading" tt:if="{{loading}}">
+    <view class="loading" tt:if="{{loading && !showSkeleton}}">
         <view class="loader">
             <view class="loader-dot"></view>
             <view class="loader-dot"></view>
