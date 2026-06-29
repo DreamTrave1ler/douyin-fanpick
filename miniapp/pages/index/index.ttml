@@ -1,5 +1,5 @@
 <view class="page-index" bindtouchstart="onTouchStart">
-    <!-- 顶部导航 - 始终显示 -->
+    <!-- 顶部导航 -->
     <view class="nav-bar">
         <text class="logo">粉丝优橱窗</text>
         <view class="search-btn" bindtap="goSearch">🔍</view>
@@ -7,13 +7,13 @@
 
     <!-- 分类标签 -->
     <view class="tabs">
-        <text class="tab active">全部</text>
-        <text class="tab">热门</text>
-        <text class="tab">新品</text>
-        <text class="tab">美食</text>
-        <text class="tab">美妆</text>
-        <text class="tab">数码</text>
-        <text class="tab">服饰</text>
+        <text class="tab {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">全部</text>
+        <text class="tab {{currentCategory === 'hot' ? 'active' : ''}}" bindtap="switchCategory" data-category="hot">热门</text>
+        <text class="tab {{currentCategory === 'new' ? 'active' : ''}}" bindtap="switchCategory" data-category="new">新品</text>
+        <text class="tab {{currentCategory === 'food' ? 'active' : ''}}" bindtap="switchCategory" data-category="food">美食</text>
+        <text class="tab {{currentCategory === 'beauty' ? 'active' : ''}}" bindtap="switchCategory" data-category="beauty">美妆</text>
+        <text class="tab {{currentCategory === 'digital' ? 'active' : ''}}" bindtap="switchCategory" data-category="digital">数码</text>
+        <text class="tab {{currentCategory === 'clothing' ? 'active' : ''}}" bindtap="switchCategory" data-category="clothing">服饰</text>
     </view>
 
     <!-- 产品列表 -->
