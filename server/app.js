@@ -9,16 +9,36 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // 中间件
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    maxAge: 86400 // 预检请求缓存 24 小时
+}));
+app.use(express.json({ limit: '1mb' }));
 app.use(response);
 
-// 静态资源缓存
+// 请求连接复用 - Keep-Alive
 app.use((req, res, next) => {
-    // GET 请求缓存 30 秒
+    res.set('Connection', 'keep-alive');
+    res.set('Keep-Alive', 'timeout=5, max=100');
+    next();
+});
+
+// GET 请求缓存
+app.use((req, res, next) => {
     if (req.method === 'GET') {
-        res.set('Cache-Control', 'public, max-age=30');
+        // 静态数据缓存 30 秒
+        res.set('Cache-Control', 'public, max-age=30, stale-while-revalidate=60');
     }
+    next();
+});
+
+// 请求超时设置
+app.use((req, res, next) => {
+    req.setTimeout(10000, () => {
+        res.status(408).json({ code: 408, message: '请求超时' });
+    });
     next();
 });
 

@@ -6,7 +6,11 @@ App({
         // 请求缓存
         cache: {},
         // 防抖定时器
-        debounceTimers: {}
+        debounceTimers: {},
+        // 请求队列（用于批量请求）
+        requestQueue: [],
+        // 是否正在处理队列
+        isProcessingQueue: false
     },
 
     onLaunch() {
@@ -60,7 +64,7 @@ App({
         });
     },
 
-    // 统一请求方法（带缓存）
+    // 统一请求方法（带缓存 + 连接复用）
     request(options, useCache = false) {
         const cacheKey = `${options.url}_${JSON.stringify(options.data || {})}`;
 
@@ -73,6 +77,8 @@ App({
         }
 
         return new Promise((resolve, reject) => {
+            const startTime = Date.now();
+
             tt.request({
                 url: `${this.globalData.baseUrl}${options.url}`,
                 method: options.method || 'GET',
@@ -82,6 +88,13 @@ App({
                     'Authorization': this.globalData.token ? `Bearer ${this.globalData.token}` : ''
                 },
                 success: (res) => {
+                    const duration = Date.now() - startTime;
+
+                    // 性能监控
+                    if (duration > 1000) {
+                        console.warn(`请求耗时过长: ${options.url} ${duration}ms`);
+                    }
+
                     if (res.data.code === 0) {
                         // 存入缓存
                         if (useCache) {
@@ -99,9 +112,17 @@ App({
                         reject(res.data.message);
                     }
                 },
-                fail: reject
+                fail: (err) => {
+                    console.error(`请求失败: ${options.url}`, err);
+                    reject(err);
+                }
             });
         });
+    },
+
+    // 批量请求（并行执行，提高连接复用率）
+    batchRequest(requests) {
+        return Promise.all(requests.map(req => this.request(req)));
     },
 
     // 清除缓存
@@ -120,6 +141,16 @@ App({
         }
         this.globalData.debounceTimers[key] = setTimeout(() => {
             fn();
+            delete this.globalData.debounceTimers[key];
+        }, delay);
+    },
+
+    // 节流
+    throttle(key, fn, delay = 300) {
+        if (this.globalData.debounceTimers[key]) return;
+
+        fn();
+        this.globalData.debounceTimers[key] = setTimeout(() => {
             delete this.globalData.debounceTimers[key];
         }, delay);
     }
