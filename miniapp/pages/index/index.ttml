@@ -1,63 +1,32 @@
 <view class="page-index" bindtouchstart="onTouchStart">
-    <!-- 顶部导航 -->
+    <!-- 顶部导航 - 始终显示 -->
     <view class="nav-bar">
-        <view class="nav-left">
-            <view class="logo-mark"></view>
-            <text class="logo-text">粉丝优橱窗</text>
-        </view>
-        <view class="nav-btn" bindtap="goSearch">
-            <text>🔍</text>
-        </view>
+        <text class="logo">粉丝优橱窗</text>
+        <view class="search-btn" bindtap="goSearch">🔍</view>
     </view>
 
     <!-- 分类标签 -->
-    <scroll-view class="tabs" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
-        <view class="tab-list">
-            <view class="tab {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">全部</view>
-            <view class="tab {{currentCategory === 'hot' ? 'active' : ''}}" bindtap="switchCategory" data-category="hot">热门</view>
-            <view class="tab {{currentCategory === 'new' ? 'active' : ''}}" bindtap="switchCategory" data-category="new">新品</view>
-            <view class="tab {{currentCategory === 'food' ? 'active' : ''}}" bindtap="switchCategory" data-category="food">美食</view>
-            <view class="tab {{currentCategory === 'beauty' ? 'active' : ''}}" bindtap="switchCategory" data-category="beauty">美妆</view>
-            <view class="tab {{currentCategory === 'digital' ? 'active' : ''}}" bindtap="switchCategory" data-category="digital">数码</view>
-            <view class="tab {{currentCategory === 'clothing' ? 'active' : ''}}" bindtap="switchCategory" data-category="clothing">服饰</view>
-        </view>
-    </scroll-view>
-
-    <!-- 骨架屏 -->
-    <view class="skeleton-list" tt:if="{{showSkeleton}}">
-        <view class="skeleton-card" tt:for="{{[1,2,3,4]}}" tt:key="*this">
-            <view class="skeleton-img"></view>
-            <view class="skeleton-body">
-                <view class="skeleton-line"></view>
-                <view class="skeleton-line short"></view>
-            </view>
-        </view>
+    <view class="tabs">
+        <text class="tab active">全部</text>
+        <text class="tab">热门</text>
+        <text class="tab">新品</text>
+        <text class="tab">美食</text>
+        <text class="tab">美妆</text>
+        <text class="tab">数码</text>
+        <text class="tab">服饰</text>
     </view>
 
     <!-- 产品列表 -->
-    <view class="product-list" tt:if="{{!showSkeleton}}">
+    <view class="product-list">
         <view class="product-card" tt:for="{{products}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
-            <image class="card-img" src="{{item.image}}" mode="aspectFill" lazy-load="{{true}}" />
-            <view class="card-rank" tt:if="{{index < 3}}">TOP{{index + 1}}</view>
+            <image class="card-img" src="{{item.image}}" mode="aspectFill" />
             <view class="card-body">
                 <text class="card-title">{{item.title}}</text>
-                <view class="card-bottom">
-                    <text class="card-price">¥{{item.priceText}}</text>
-                    <view class="card-want" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
-                        <text>{{item.is_wanted ? '❤️' : '🤍'}} {{item.want_count}}</text>
-                    </view>
-                </view>
+                <text class="card-price">¥{{item.priceText}}</text>
             </view>
         </view>
     </view>
 
-    <!-- 空状态 -->
-    <view class="empty" tt:if="{{!loading && !products.length && !showSkeleton}}">
-        <text>📦 暂无商品</text>
-        <view class="empty-btn" bindtap="goSearch">去探索</view>
-    </view>
-
-    <!-- 加载更多 -->
-    <view class="loading" tt:if="{{loading && !showSkeleton}}">加载中...</view>
-    <view class="no-more" tt:if="{{noMore && products.length}}">— 到底啦 —</view>
+    <!-- 加载状态 -->
+    <view class="loading" tt:if="{{loading}}">加载中...</view>
 </view>
