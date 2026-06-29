@@ -10,23 +10,19 @@ Page({
     },
 
     onLoad() {
-        // 触摸触发 LCP 埋点
-        this.triggerLCP();
-        this.loadRank();
+        // 不在 onLoad 发请求
     },
 
-    // 触摸触发 LCP 埋点
-    triggerLCP() {
-        // 监听触摸事件触发 LCP 上报
-        this._lcpTriggered = false;
+    onReady() {
+        // 首屏渲染完成后再加载数据
+        this.loadRank();
     },
 
     // 触摸事件 - 触发 LCP 上报
     onTouchStart() {
         if (!this._lcpTriggered) {
             this._lcpTriggered = true;
-            // 触发页面重绘以上报 LCP
-            this.setData({ _lcp: Date.now() });
+            this.setData({ _touch: true });
         }
     },
 
@@ -43,11 +39,41 @@ Page({
 
     onReachBottom() {
         if (!this.data.loading && !this.data.noMore) {
-            this.loadRank();
+            this.loadMore();
         }
     },
 
     loadRank() {
+        if (this.data.loading) return;
+        this.setData({ loading: true });
+
+        app.request({
+            url: '/wants/rank',
+            data: { page: 1, size: 20 }
+        }).then(list => {
+            const items = list.map((item, i) => ({
+                ...item,
+                rank: i + 1,
+                priceText: (item.price / 100).toFixed(2)
+            }));
+
+            const top3 = items.slice(0, 3);
+            const rankList = items.slice(3);
+
+            this.setData({
+                top3,
+                rankList,
+                page: 2,
+                noMore: items.length < 20,
+                loading: false
+            });
+        }).catch(err => {
+            this.setData({ loading: false });
+            tt.showToast({ title: '加载失败', icon: 'none' });
+        });
+    },
+
+    loadMore() {
         if (this.data.loading || this.data.noMore) return;
         this.setData({ loading: true });
 
@@ -61,27 +87,14 @@ Page({
                 priceText: (item.price / 100).toFixed(2)
             }));
 
-            if (this.data.page === 1) {
-                const top3 = items.slice(0, 3);
-                const rankList = items.slice(3);
-                this.setData({
-                    top3,
-                    rankList: this.data.rankList.concat(rankList),
-                    page: 2,
-                    noMore: items.length < 20,
-                    loading: false
-                });
-            } else {
-                this.setData({
-                    rankList: this.data.rankList.concat(items),
-                    page: this.data.page + 1,
-                    noMore: items.length < 20,
-                    loading: false
-                });
-            }
+            this.setData({
+                rankList: this.data.rankList.concat(items),
+                page: this.data.page + 1,
+                noMore: items.length < 20,
+                loading: false
+            });
         }).catch(err => {
             this.setData({ loading: false });
-            tt.showToast({ title: String(err), icon: 'none' });
         });
     },
 
@@ -111,15 +124,12 @@ Page({
 
         tt.vibrateShort({ type: 'medium' });
 
-        app.debounce(`want_${id}`, () => {
-            app.request({
-                url: '/wants',
-                method: isWanted ? 'DELETE' : 'POST',
-                data: { product_id: id }
-            }).catch(err => {
-                this.setData({ [key]: isWanted, [countKey]: product.want_count });
-                tt.showToast({ title: String(err), icon: 'none' });
-            });
-        }, 500);
+        app.request({
+            url: '/wants',
+            method: isWanted ? 'DELETE' : 'POST',
+            data: { product_id: id }
+        }).catch(err => {
+            this.setData({ [key]: isWanted, [countKey]: product.want_count });
+        });
     }
 });
