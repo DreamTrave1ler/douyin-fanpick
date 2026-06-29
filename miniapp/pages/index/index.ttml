@@ -3,11 +3,11 @@
     <view class="nav-bar">
         <view class="nav-left">
             <view class="logo-mark"></view>
-            <text class="logo-text">FANPICK</text>
+            <text class="logo-text">范选</text>
         </view>
         <view class="nav-right">
             <view class="nav-btn" bindtap="goSearch">
-                <view class="search-line"></view>
+                <text class="search-icon">🔍</text>
             </view>
         </view>
     </view>
@@ -16,25 +16,25 @@
     <scroll-view class="tabs" scroll-x="{{true}}" enhanced="{{true}}" show-scrollbar="{{false}}">
         <view class="tab-list">
             <view class="tab {{currentCategory === 'all' ? 'active' : ''}}" bindtap="switchCategory" data-category="all">
-                <text>ALL</text>
+                <text>全部</text>
             </view>
             <view class="tab {{currentCategory === 'hot' ? 'active' : ''}}" bindtap="switchCategory" data-category="hot">
-                <text>HOT</text>
+                <text>热门</text>
             </view>
             <view class="tab {{currentCategory === 'new' ? 'active' : ''}}" bindtap="switchCategory" data-category="new">
-                <text>NEW</text>
+                <text>新品</text>
             </view>
             <view class="tab {{currentCategory === 'food' ? 'active' : ''}}" bindtap="switchCategory" data-category="food">
-                <text>FOOD</text>
+                <text>美食</text>
             </view>
             <view class="tab {{currentCategory === 'beauty' ? 'active' : ''}}" bindtap="switchCategory" data-category="beauty">
-                <text>BEAUTY</text>
+                <text>美妆</text>
             </view>
             <view class="tab {{currentCategory === 'digital' ? 'active' : ''}}" bindtap="switchCategory" data-category="digital">
-                <text>TECH</text>
+                <text>数码</text>
             </view>
             <view class="tab {{currentCategory === 'clothing' ? 'active' : ''}}" bindtap="switchCategory" data-category="clothing">
-                <text>FASHION</text>
+                <text>服饰</text>
             </view>
         </view>
     </scroll-view>
@@ -44,8 +44,8 @@
         <view class="product-card" tt:for="{{products}}" tt:key="id" bindtap="goDetail" data-id="{{item.id}}">
             <view class="card-img">
                 <image src="{{item.image}}" mode="aspectFill" lazy-load="{{true}}" />
-                <view class="card-number">
-                    <text>{{index + 1 < 10 ? '0' : ''}}{{index + 1}}</text>
+                <view class="card-rank" tt:if="{{index < 3}}">
+                    <text>TOP{{index + 1}}</text>
                 </view>
             </view>
             <view class="card-body">
@@ -56,7 +56,7 @@
                         <text class="card-price">{{item.priceText}}</text>
                     </view>
                     <view class="card-want {{item.is_wanted ? 'active' : ''}}" catchtap="toggleWant" data-id="{{item.id}}" data-index="{{index}}">
-                        <view class="want-dot {{item.is_wanted ? 'filled' : ''}}"></view>
+                        <text class="want-icon">{{item.is_wanted ? '❤️' : '🤍'}}</text>
                         <text class="want-count">{{item.want_count}}</text>
                     </view>
                 </view>
@@ -66,10 +66,10 @@
 
     <!-- 空状态 -->
     <view class="empty" tt:if="{{!loading && !products.length}}">
-        <view class="empty-shape"></view>
-        <text class="empty-text">NO ITEMS YET</text>
+        <text class="empty-icon">📦</text>
+        <text class="empty-text">暂无商品</text>
         <view class="empty-btn" bindtap="goSearch">
-            <text>EXPLORE</text>
+            <text>去探索</text>
         </view>
     </view>
 
@@ -83,6 +83,8 @@
     </view>
 
     <view class="no-more" tt:if="{{noMore && products.length}}">
+        <view class="end-line"></view>
+        <text class="end-text">到底啦</text>
         <view class="end-line"></view>
     </view>
 </view>

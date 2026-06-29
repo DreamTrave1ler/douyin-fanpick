@@ -1,13 +1,12 @@
 <view class="page-detail" tt:if="{{product}}">
     <!-- 返回按钮 -->
     <view class="back-btn" bindtap="goBack">
-        <view class="back-arrow"></view>
+        <text>←</text>
     </view>
 
     <!-- 产品图片 -->
     <view class="hero">
         <image src="{{product.image}}" mode="aspectFill" bindtap="previewImage" />
-        <view class="hero-overlay"></view>
     </view>
 
     <!-- 价格区域 -->
@@ -17,14 +16,9 @@
             <text class="amount">{{priceText}}</text>
         </view>
         <view class="price-meta">
-            <view class="meta-item">
-                <view class="meta-dot"></view>
-                <text>{{product.want_count}} 想要</text>
-            </view>
-            <view class="meta-item">
-                <view class="meta-dot"></view>
-                <text>{{product.view_count || 0}} 浏览</text>
-            </view>
+            <text class="meta-item">{{product.want_count}} 人想要</text>
+            <text class="meta-divider">·</text>
+            <text class="meta-item">{{product.view_count || 0}} 次浏览</text>
         </view>
     </view>
 
@@ -32,9 +26,7 @@
     <view class="info-section">
         <text class="product-title">{{product.title}}</text>
         <view class="creator-row">
-            <view class="creator-avatar-wrap">
-                <image class="creator-avatar" src="{{product.creator_avatar || '/assets/default-avatar.png'}}" />
-            </view>
+            <image class="creator-avatar" src="{{product.creator_avatar || '/assets/default-avatar.png'}}" />
             <view class="creator-info">
                 <text class="creator-label">推荐者</text>
                 <text class="creator-name">{{product.creator_name}}</text>
@@ -50,10 +42,8 @@
         </view>
         <view class="vote-btn-wrap">
             <view class="vote-btn {{product.is_wanted ? 'active' : ''}}" bindtap="toggleWant">
-                <view class="vote-icon-wrap">
-                    <view class="vote-heart {{product.is_wanted ? 'filled' : ''}}"></view>
-                </view>
-                <text>{{product.is_wanted ? 'WANTED' : 'WANT'}}</text>
+                <text class="vote-icon">{{product.is_wanted ? '❤️' : '🤍'}}</text>
+                <text>{{product.is_wanted ? '已想要' : '我想要'}}</text>
             </view>
         </view>
         <view class="vote-count">
@@ -65,15 +55,14 @@
     <!-- 底部操作栏 -->
     <view class="action-bar">
         <view class="action-share" open-type="share">
-            <view class="share-icon">
-                <view class="share-arrow"></view>
-            </view>
+            <text>📤</text>
+            <text>分享</text>
         </view>
         <view class="action-buy" bindtap="goDouyinShop" tt:if="{{product.detail_url}}">
-            <text>GO SHOP</text>
+            <text>去购买</text>
         </view>
         <view class="action-buy" bindtap="goShop" tt:else>
-            <text>EXPLORE</text>
+            <text>逛商城</text>
         </view>
     </view>
 </view>
