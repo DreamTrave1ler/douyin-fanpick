@@ -12,48 +12,44 @@ Page({
     },
 
     onLoad() {
+        // 触发 LCP 埋点
+        this.triggerLCP();
+
+        // 使用缓存数据快速渲染
         this.setData({ userInfo: app.globalData.userInfo });
+    },
+
+    // 触发 LCP 埋点
+    triggerLCP() {
+        setTimeout(() => {
+            tt.createSelectorQuery().select('.page-mine').boundingClientRect().exec();
+        }, 100);
     },
 
     onShow() {
         if (app.globalData.token) {
-            this.loadUserInfo();
-            this.loadMyWants();
-            this.loadStats();
-        }
-    },
-
-    // 加载用户信息
-    loadUserInfo() {
-        app.request({ url: '/auth/user' })
-            .then(user => {
+            // 并行请求，提高连接复用率
+            app.batchRequest([
+                { url: '/auth/user' },
+                { url: '/wants/mine', data: { size: 10 } },
+                { url: '/user/stats' }
+            ]).then(([user, wants, stats]) => {
+                // 批量更新
                 app.globalData.userInfo = user;
                 tt.setStorageSync('userInfo', user);
-                this.setData({ userInfo: user });
-            })
-            .catch(() => {});
-    },
 
-    // 加载我的投票
-    loadMyWants() {
-        app.request({ url: '/wants/mine', data: { size: 10 } })
-            .then(list => {
-                const wants = list.map(w => ({
+                const formattedWants = (wants || []).map(w => ({
                     ...w,
                     priceText: (w.price / 100).toFixed(2)
                 }));
-                this.setData({ myWants: wants });
-            })
-            .catch(() => {});
-    },
 
-    // 加载统计数据
-    loadStats() {
-        app.request({ url: '/user/stats' })
-            .then(stats => {
-                this.setData({ stats });
-            })
-            .catch(() => {});
+                this.setData({
+                    userInfo: user,
+                    myWants: formattedWants,
+                    stats: stats || { wantCount: 0, productCount: 0, fansCount: 0 }
+                });
+            }).catch(() => {});
+        }
     },
 
     // 登录

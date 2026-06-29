@@ -5,12 +5,10 @@ App({
         baseUrl: 'https://douyin-fanpick-production.up.railway.app/api',
         // 请求缓存
         cache: {},
+        // 产品缓存
+        productCache: null,
         // 防抖定时器
-        debounceTimers: {},
-        // 请求队列（用于批量请求）
-        requestQueue: [],
-        // 是否正在处理队列
-        isProcessingQueue: false
+        debounceTimers: {}
     },
 
     onLaunch() {
@@ -22,16 +20,34 @@ App({
             this.globalData.userInfo = userInfo;
         }
 
-        // 预加载常用数据
-        this.preloadData();
+        // 从本地存储恢复产品缓存
+        this.restoreProductCache();
     },
 
-    // 预加载数据
-    preloadData() {
-        // 异步预加载，不阻塞启动
-        setTimeout(() => {
-            this.request({ url: '/products', data: { page: 1, size: 10 } }, true);
-        }, 100);
+    // 恢复产品缓存
+    restoreProductCache() {
+        try {
+            const cached = tt.getStorageSync('productCache');
+            if (cached && Date.now() - cached.time < 300000) { // 5分钟有效
+                this.globalData.productCache = cached.data;
+            }
+        } catch (e) {}
+    },
+
+    // 获取缓存的产品
+    getCachedProducts() {
+        return this.globalData.productCache;
+    },
+
+    // 设置产品缓存
+    setCachedProducts(products) {
+        this.globalData.productCache = products;
+        try {
+            tt.setStorageSync('productCache', {
+                data: products,
+                time: Date.now()
+            });
+        } catch (e) {}
     },
 
     // 登录方法
@@ -91,7 +107,7 @@ App({
                     const duration = Date.now() - startTime;
 
                     // 性能监控
-                    if (duration > 1000) {
+                    if (duration > 500) {
                         console.warn(`请求耗时过长: ${options.url} ${duration}ms`);
                     }
 

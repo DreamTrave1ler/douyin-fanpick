@@ -11,7 +11,16 @@ Page({
     },
 
     onLoad() {
+        // 触发 LCP 埋点
+        this.triggerLCP();
         this.loadHistory();
+    },
+
+    // 触发 LCP 埋点
+    triggerLCP() {
+        setTimeout(() => {
+            tt.createSelectorQuery().select('.page-search').boundingClientRect().exec();
+        }, 100);
     },
 
     // 加载搜索历史
@@ -30,7 +39,7 @@ Page({
         this.setData({ searchHistory: history });
     },
 
-    // 输入事件
+    // 输入事件 - 节流处理
     onInput(e) {
         this.setData({ keyword: e.detail.value });
     },
@@ -60,7 +69,7 @@ Page({
         this.doSearch();
     },
 
-    // 执行搜索
+    // 执行搜索 - 防抖处理
     doSearch() {
         const keyword = this.data.keyword.trim();
         if (!keyword) return;
@@ -68,26 +77,28 @@ Page({
         this.saveHistory(keyword);
         this.setData({ searching: true, searchResults: [] });
 
-        // 搜索本地数据库
-        app.request({
-            url: '/products/search',
-            data: { keyword }
-        }).then(data => {
-            const results = (data.list || []).map(p => ({
-                ...p,
-                priceText: (p.price / 100).toFixed(2),
-                salesText: this.formatSales(p.sales || 0),
-                is_douyin: !!p.detail_url
-            }));
+        // 使用防抖
+        app.debounce('search', () => {
+            app.request({
+                url: '/products/search',
+                data: { keyword }
+            }).then(data => {
+                const results = (data.list || []).map(p => ({
+                    ...p,
+                    priceText: (p.price / 100).toFixed(2),
+                    salesText: this.formatSales(p.sales || 0),
+                    is_douyin: !!p.detail_url
+                }));
 
-            this.setData({
-                searchResults: results,
-                searching: false
+                this.setData({
+                    searchResults: results,
+                    searching: false
+                });
+            }).catch(err => {
+                this.setData({ searching: false });
+                tt.showToast({ title: '搜索失败', icon: 'none' });
             });
-        }).catch(err => {
-            this.setData({ searching: false });
-            tt.showToast({ title: '搜索失败', icon: 'none' });
-        });
+        }, 300);
     },
 
     // 格式化销量

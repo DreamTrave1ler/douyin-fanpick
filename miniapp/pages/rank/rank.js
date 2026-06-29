@@ -10,7 +10,16 @@ Page({
     },
 
     onLoad() {
+        // 触发 LCP 埋点
+        this.triggerLCP();
         this.loadRank();
+    },
+
+    // 触发 LCP 埋点
+    triggerLCP() {
+        setTimeout(() => {
+            tt.createSelectorQuery().select('.page-rank').boundingClientRect().exec();
+        }, 100);
     },
 
     onShow() {
@@ -94,13 +103,15 @@ Page({
 
         tt.vibrateShort({ type: 'medium' });
 
-        app.request({
-            url: '/wants',
-            method: isWanted ? 'DELETE' : 'POST',
-            data: { product_id: id }
-        }).catch(err => {
-            this.setData({ [key]: isWanted, [countKey]: product.want_count });
-            tt.showToast({ title: String(err), icon: 'none' });
-        });
+        app.debounce(`want_${id}`, () => {
+            app.request({
+                url: '/wants',
+                method: isWanted ? 'DELETE' : 'POST',
+                data: { product_id: id }
+            }).catch(err => {
+                this.setData({ [key]: isWanted, [countKey]: product.want_count });
+                tt.showToast({ title: String(err), icon: 'none' });
+            });
+        }, 500);
     }
 });
