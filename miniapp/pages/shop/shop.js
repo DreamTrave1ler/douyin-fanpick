@@ -19,7 +19,22 @@ Page({
     },
 
     onLoad() {
+        // 触发 LCP 埋点
+        this.triggerLCP();
         this.loadShopProducts();
+    },
+
+    // 触发 LCP 埋点
+    triggerLCP() {
+        this._lcpTriggered = false;
+    },
+
+    // 触摸事件 - 触发 LCP 上报
+    onTouchStart() {
+        if (!this._lcpTriggered) {
+            this._lcpTriggered = true;
+            this.setData({ _lcp: Date.now() });
+        }
     },
 
     onPullDownRefresh() {

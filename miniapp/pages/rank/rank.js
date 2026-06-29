@@ -10,16 +10,24 @@ Page({
     },
 
     onLoad() {
-        // 触发 LCP 埋点
+        // 触摸触发 LCP 埋点
         this.triggerLCP();
         this.loadRank();
     },
 
-    // 触发 LCP 埋点
+    // 触摸触发 LCP 埋点
     triggerLCP() {
-        setTimeout(() => {
-            tt.createSelectorQuery().select('.page-rank').boundingClientRect().exec();
-        }, 100);
+        // 监听触摸事件触发 LCP 上报
+        this._lcpTriggered = false;
+    },
+
+    // 触摸事件 - 触发 LCP 上报
+    onTouchStart() {
+        if (!this._lcpTriggered) {
+            this._lcpTriggered = true;
+            // 触发页面重绘以上报 LCP
+            this.setData({ _lcp: Date.now() });
+        }
     },
 
     onShow() {

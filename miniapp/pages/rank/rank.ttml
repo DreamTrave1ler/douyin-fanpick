@@ -1,4 +1,4 @@
-<view class="page-rank">
+<view class="page-rank" bindtouchstart="onTouchStart">
     <!-- 顶部 -->
     <view class="header">
         <text class="header-title">🏆 人气排行榜</text>

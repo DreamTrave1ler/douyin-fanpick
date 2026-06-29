@@ -1,4 +1,4 @@
-<view class="page-shop">
+<view class="page-shop" bindtouchstart="onTouchStart">
     <!-- 提示 -->
     <view class="notice">
         <text>关联抖音商城商品，让粉丝投票选品</text>

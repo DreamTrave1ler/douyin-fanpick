@@ -21,9 +21,15 @@ Page({
 
     // 触发 LCP 埋点
     triggerLCP() {
-        setTimeout(() => {
-            tt.createSelectorQuery().select('.page-mine').boundingClientRect().exec();
-        }, 100);
+        this._lcpTriggered = false;
+    },
+
+    // 触摸事件 - 触发 LCP 上报
+    onTouchStart() {
+        if (!this._lcpTriggered) {
+            this._lcpTriggered = true;
+            this.setData({ _lcp: Date.now() });
+        }
     },
 
     onShow() {

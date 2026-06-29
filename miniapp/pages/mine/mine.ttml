@@ -1,4 +1,4 @@
-<view class="page-mine">
+<view class="page-mine" bindtouchstart="onTouchStart">
     <!-- 用户区域 -->
     <view class="user-area">
         <view class="user-info" tt:if="{{userInfo}}">
