@@ -3,7 +3,7 @@
     <view class="nav-bar">
         <view class="nav-left">
             <view class="logo-mark"></view>
-            <text class="logo-text">范选</text>
+            <text class="logo-text">FanPick</text>
         </view>
         <view class="nav-right">
             <view class="nav-btn" bindtap="goSearch">

@@ -132,6 +132,6 @@
 
     <!-- 版本 -->
     <view class="version">
-        <text>范选 v1.0.0</text>
+        <text>FanPick v1.0.0</text>
     </view>
 </view>
